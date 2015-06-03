@@ -27,13 +27,9 @@ function makeDict(){
 		return console.log(err);
 	});
 	phoneDictStream.on('end',function(){
-		console.log(stringToPhonemes("God is dead and I am an animal",dictionary));
+		console.log(stringToPhonemes("boston face price choice goat mouth nurse start north force near square cure comma letter happy",dictionary));
 	});
-
-	
-	
 }
-
 
 //Takes a space separated string.
 function stringToPhonemes(string,dict){
