@@ -7,24 +7,6 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor( 0xffffff, 1 );
 document.body.appendChild( renderer.domElement );
 
-var geometry = new THREE.BoxGeometry( 8, 8, 8 );
-
-
-//Builds color cube
-/*for(var x = 128; x < 256; x += 25){
-	for(var y = 128; y < 256; y += 25){
-		for(var z = 128; z < 256; z += 25){
-			var color = new THREE.Color();
-			color.setRGB(x / 255, y / 255, z / 255);
-			console.log(color);
-			var material = new THREE.MeshBasicMaterial( { color: color } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
-			cube.position.set(x, y, z);
-		}
-	}
-}*/
-
 var vowels = { 
 	AA: [ '0', '0', '0' ],
 	AE: [ '0', '3', '1' ],
@@ -66,49 +48,91 @@ var consonants = {
 	ZH: [ '2', '0', '4' ] 
 };
 
+var cubeGeometry = new THREE.BoxGeometry( 8, 8, 8 );
+var labels = new THREE.Object3D();
+
+
+//Builds color cube
+/*for(var x = 128; x < 256; x += 25){
+	for(var y = 128; y < 256; y += 25){
+		for(var z = 128; z < 256; z += 25){
+			var color = new THREE.Color();
+			color.setRGB(x / 255, y / 255, z / 255);
+			console.log(color);
+			var material = new THREE.MeshBasicMaterial( { color: color } );
+			var cube = new THREE.Mesh( cubeGeometry, material );
+			scene.add( cube );
+			cube.position.set(x, y, z);
+		}
+	}
+}*/
+
 var font = {
 	size: 4,
-	height: 3
+	height: 1
 };
 
+var color = new THREE.Color();
+var labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
+var letter, phoneme;
+var labelOffset = 4;
+var scale = 150;
+
 for (vowel in vowels){
-	var color = new THREE.Color();
-	var letter = new THREE.TextGeometry(vowel, font);
-	var phoneme = vowels[vowel];
+	letter = new THREE.TextGeometry(vowel, font);
+	phoneme = vowels[vowel];
+	//Scale the roundness, backness and height of each vowel to fit the RGB scale of 0.0-1.0
 	var roundness = Number.parseInt(phoneme[0]) / 5;
 	var backness = Number.parseInt(phoneme[1]) / 10;
 	var height = Number.parseInt(phoneme[2]) / 10;
-	console.log(vowel, roundness, backness, height);
 	color.setRGB(roundness, backness, height);
+	//Create the cube and label
 	var material = new THREE.MeshBasicMaterial( { color: color } );
-	var cube = new THREE.Mesh( geometry, material );
-	var label = new THREE.Mesh(letter, material);
+	var cube = new THREE.Mesh( cubeGeometry, material );
+	var label = new THREE.Mesh(letter, labelMaterial);
 	scene.add( cube );
-	scene.add(label);
-	cube.position.set(roundness * 150, backness * 150, height * 150);
-	label.position.set(roundness * 150 + 3, backness * 150 + 3, height * 150 + 3);
+	labels.add(label);
+	//Set the position of each cube and label
+	cube.position.set(roundness * scale, backness * scale, height * scale);
+	label.position.set(roundness * scale + labelOffset, backness * scale + labelOffset, height * scale + labelOffset);
+	//Build and position the outline of each label
+	var outlineMaterial1 = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide } );
+	var outlineMesh = new THREE.Mesh( letter, outlineMaterial1 );
+	outlineMesh.position.set(roundness * scale + labelOffset, backness * scale + labelOffset, height * scale + labelOffset);
+	outlineMesh.scale.multiplyScalar(1.07);
+	labels.add( outlineMesh );
 }
 
 for (consonant in consonants){
-	var color = new THREE.Color();
-	var letter = new THREE.TextGeometry(consonant, font);
-	var phoneme = consonants[consonant];
+	letter = new THREE.TextGeometry(consonant, font);
+	phoneme = consonants[consonant];
+	//Scale the manner, voicing and place of each consonant to fit the RGB scale of 0.0-1.0
 	var manner = Number.parseInt(phoneme[0]) / 10 + 0.3;
 	var voicing = Number.parseInt(phoneme[1]) / 11.666 + 0.4;
 	var place = Number.parseInt(phoneme[2]) / 14 + 0.5;
-	console.log(consonant, manner, voicing, place);
 	color.setRGB(manner, voicing, place);
+	//Create the cube and label
 	var material = new THREE.MeshBasicMaterial( { color: color } );
-	var cube = new THREE.Mesh( geometry, material );
-	var label = new THREE.Mesh(letter, material);
+	var cube = new THREE.Mesh( cubeGeometry, material );
+	var label = new THREE.Mesh(letter, labelMaterial);
 	scene.add( cube );
-	scene.add(label);
-	cube.position.set(manner * 150, voicing * 150, place * 150);
-	label.position.set(manner * 150 + 3, voicing * 150 + 3, place * 150 + 3);
+	labels.add(label);
+	//Set the position of each cube and label
+	cube.position.set(manner * scale, voicing * scale, place * scale);
+	label.position.set(manner * scale + labelOffset, voicing * scale + labelOffset, place * scale + labelOffset);
+	//Build and position the outline of each label
+	var outlineMaterial1 = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide } );
+	var outlineMesh = new THREE.Mesh( letter, outlineMaterial1 );
+	outlineMesh.position.set(manner * scale + labelOffset, voicing * scale + labelOffset, place * scale + labelOffset);
+	outlineMesh.scale.multiplyScalar(1.07);
+	labels.add( outlineMesh );
 }
+
+scene.add(labels);
 
 
 camera.position.set(128, 128, 500);
+
 
 var controls = new THREE.OrbitControls( camera );
 controls.damping = 0.2;
@@ -116,7 +140,14 @@ controls.addEventListener( 'change', render );
 
 var render = function () {
 	requestAnimationFrame( render );
-
+	camera.lookAt(new THREE.Vector3(75, 75, 75));
+	var labelRotate = labels.children;	
+	for(var i = 0; i < labelRotate.length + 1; i++){
+		//console.log(labelRotate);
+		if(labelRotate[i]){
+			labelRotate[i].lookAt(camera.position);
+		}	
+	}
 	renderer.render(scene, camera);
 };
 
