@@ -142,11 +142,12 @@ var render = function () {
 	requestAnimationFrame( render );
 	camera.lookAt(new THREE.Vector3(75, 75, 75));
 	var labelRotate = labels.children;	
-	for(var i = 0; i < labelRotate.length + 1; i++){
-		//console.log(labelRotate);
+	for(var i = 0; i < labelRotate.length; i++){
 		if(labelRotate[i]){
 			labelRotate[i].lookAt(camera.position);
-		}	
+		}else{
+			console.log(labelRotate, i);
+		}
 	}
 	renderer.render(scene, camera);
 };
