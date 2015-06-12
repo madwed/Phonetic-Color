@@ -41,4 +41,22 @@ function stringToPhonemes(string,dict){
 	return phonemes;
 }
 
+//create a phoneme dictionary with vowels instead of dipthongs
+function removeDipts(){
+	var phoneDictStream = fs.createReadStream('./cmudict/cmudict.0.7a_SPHINX_40.txt','utf8')
+		.pipe(split());
+	var noDipt = fs.createWriteStream('./cmudict/finalDict.txt', 'utf8');
+	var num = 0;
+	phoneDictStream.on('data', function(line){
+		var entry = line.split(/\s/);
+		dictionary[entry[0]] = entry.splice(1,entry.length);
+	});
+	phoneDictStream.on('error',function(err){
+		return console.log(err);
+	});
+	phoneDictStream.on('end',function(){
+		console.log(stringToPhonemes("boston face price choice goat mouth nurse start north force near square cure comma letter happy",dictionary));
+	});
+}
+
 makeDict();
