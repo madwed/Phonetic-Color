@@ -44,6 +44,7 @@ var colorDict = makeDict(colorPath, colorEntry);
 // Takes a space separated string
 // Returns an array of phoneme arrays
 var stringToPhonemes = function (string) {
+	if(!string){ return []; }
 	string = string.replace(/[^\w\s|_]/g, "");
 	var words = string.split(/\s/);
 	var phonemes = [];
