@@ -3,14 +3,16 @@
 <head>
 	<title>Color by Phoneme</title>
 	<script src="/js/request.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-	<label for="text_field">Text:</label>
-	<input name="text" type="text" id="text_field" style="width: 350px;" />
-	<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
-	<input type="submit" value="Submit" onclick="postText()"/>
-	<canvas id="canvas"></canvas>
-	<div id="myDiv"></div>
+	<div id="input">
+		<label for="text_field">Text:</label>
+		<input name="text" type="text" id="text_field" style="width: 350px;" />
+		<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
+		<input type="submit" value="Submit" onclick="postText()"/>
+	</div>
+	<canvas id="canvas" width="840"></canvas>
 	<script src="/js/drawPhonemes.js"></script>
 	
 </body>
