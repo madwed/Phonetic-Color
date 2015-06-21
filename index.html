@@ -6,13 +6,21 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-	<div id="input">
-		<label for="text_field">Text:</label>
-		<input name="text" type="text" id="text_field" style="width: 350px;" />
-		<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
-		<input type="submit" value="Submit" onclick="postText()"/>
+	<h1>Phonetic Color</h1>
+	<div id="mapper">
+		<div id="words">
+			<label for="text_field">Text:</label>
+			<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
+			<input type="submit" value="Submit" id="submit" onclick="postText()"/>
+			<textarea id="text_field"></textarea>
+			
+			
+		</div>
+		<canvas id="canvas" width="840"></canvas>
 	</div>
-	<canvas id="canvas" width="840"></canvas>
+	<div id="cuber">
+		<canvas id="phoCubes"></canvas>
+	</div>
 	<script src="/js/drawPhonemes.js"></script>
 	
 </body>

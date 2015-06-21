@@ -1,8 +1,40 @@
+body{
+	background-color: white;
+}
+
+#mapper, #cuber{
+	display: inline-block;
+}
+
+#words{
+	margin: auto;
+	text-align: center;
+	align-content: center;
+	align-items: center;
+}
+
+#words label{
+	display: block;
+}
+
+#submit{
+	display: block;
+}
+
+
+
+#text_field{
+	width: 854px;
+	height: 140px;
+	display: inline-block;
+}
+
 #canvas{
 	display: block;
 	width: 840px;
 	border: 10px solid black;
 	margin: auto;
 }
+
 
 
