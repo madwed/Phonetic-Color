@@ -18,7 +18,7 @@ var path = require("path");
 function makeDict(filePath, entryFunc) {
 	var phoneDict = fs.readFileSync(filePath, "utf8");
 	var dictionary = {};
-	phoneDict = phoneDict.split(/\n\r/);
+	phoneDict = phoneDict.split(/[\n\r]/);
 	phoneDict.forEach(function (line) {
 		var entry = line.split(/\s/);
 		dictionary[entry[0]] = entryFunc(entry);
@@ -44,6 +44,7 @@ var colorDict = makeDict(colorPath, colorEntry);
 // Takes a space separated string
 // Returns an array of phoneme arrays
 var stringToPhonemes = function (string) {
+	string = string.replace(/[^\w\s|_]/g, "");
 	var words = string.split(/\s/);
 	var phonemes = [];
 	phonemes = words.map(function (word) {
@@ -59,6 +60,7 @@ var phonemesToColorString = function (phonemes) {
 		wordEntry, phoEntry, word;
 	for(wordEntry = 0; wordEntry < phonemeLength; wordEntry++){
 		word = phonemes[wordEntry];
+		if(!word){ continue; }
 		wordLength = word.length;
 		for(phoEntry = 0; phoEntry < wordLength; phoEntry++){
 			colorString += colorDict[word[phoEntry]];
