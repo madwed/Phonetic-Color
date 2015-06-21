@@ -8,6 +8,7 @@ var bodyParser = require("body-parser");
 var app = express();
 
 app.use(logger("dev"));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.text());
 
 var routes = require(path.join(__dirname, "router.js"));

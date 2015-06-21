@@ -68,7 +68,7 @@ var phonemesToColorString = function (phonemes) {
 		}
 		colorString += "J";
 	}
-	return colorString;
+	return colorString.slice(0, -1);
 };
 
 module.exports = function (string) {

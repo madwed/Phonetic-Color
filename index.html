@@ -2,14 +2,16 @@
 <html>
 <head>
 	<title>Color by Phoneme</title>
-	<script src="/request.js"></script>
+	<script src="/js/request.js"></script>
 </head>
 <body>
 	<label for="text_field">Text:</label>
 	<input name="text" type="text" id="text_field" style="width: 350px;" />
 	<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
 	<input type="submit" value="Submit" onclick="postText()"/>
+	<canvas id="canvas"></canvas>
 	<div id="myDiv"></div>
+	<script src="/js/drawPhonemes.js"></script>
 	
 </body>
 </html>
