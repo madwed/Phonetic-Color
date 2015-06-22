@@ -16,7 +16,6 @@
 
 
 	function draw (codeString) {
-		console.log(codeString);
 		var nemes = codeString.split("J");
 		var color, phoWidth = 2, phoHeight = 8,
 			margin = 40, rightMargin = canvas.width - margin - phoWidth,

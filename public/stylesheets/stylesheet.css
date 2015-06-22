@@ -8,19 +8,10 @@ body{
 	margin: 0em	0em 0em 1em;
 }
 
-#mapper, #cuber{
-	display: inline-block;
-}
-
-#words{
-	margin: auto;
-	text-align: center;
-	align-content: center;
-	align-items: center;
-}
-
-#words label{
-	display: block;
+#mapper{
+	position: absolute;
+	width: 60%;
+	right: 5%;
 }
 
 #submit{
@@ -28,50 +19,39 @@ body{
 }
 
 #text_field{
-	width: 754px;
+	width: 101%;
 	height: 190px;
 	display: inline-block;
 	border-radius: 5px 20px;	
 }
 
 #canvas{
-	position: absolute;
-	display: block;
-	right: 10%;
-	top: 20em;
-	width: 740px;
+	width: 100%;
 	height: 350px;
 	border-top: 4px solid black;
 	border-right: 8px solid black;
 	border-bottom: 0px solid black;
 	border-left: 8px solid black;
 	border-radius: 25px 40px 60px 50px;
-	margin: 0px auto;
 }
 
 #cuber{
-	position: absolute;
-	width: 500px;
-	height: 100px;
-	right: -68px;
-	top: -10px;
-	-ms-transform: rotate(3deg); /* IE 9 */
-    -webkit-transform: rotate(3deg); /* Chrome, Safari, Opera */
-    transform: rotate(3deg);
+	position: fixed;
+	width: 400px;
+	
 }
 
 #phoCubes{
 	position: relative;	
 	height: 300px;
+	width: 400px;
 	top: -10px;
+	border: 4px solid black;
 	border-radius: 25px 100px;
-	-ms-transform: rotate(-3deg); /* IE 9 */
-    -webkit-transform: rotate(-3deg); /* Chrome, Safari, Opera */
-    transform: rotate(-3deg);
 	
 }
 
-#cubeCanvLeft{
+/*#cubeCanvLeft{
 	position: relative;
 	top: -300px;
 	height: 300px;
@@ -99,10 +79,10 @@ body{
 	border-top: solid black 2px;
 	border-right: solid black 1px;
 	border-top-right-radius: 200px;
-	-ms-transform: rotate(-1deg); /* IE 9 */
-    -webkit-transform: rotate(-1deg); /* Chrome, Safari, Opera */
+	-ms-transform: rotate(-1deg); 
+    -webkit-transform: rotate(-1deg);
     transform: rotate(-1deg);
     margin: 0px;
-}
+}*/
 
 

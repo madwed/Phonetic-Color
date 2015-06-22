@@ -81,7 +81,7 @@ addToModel(consonants, consonantScaler);
 scene.add(labels);
 
 
-camera.position.set(-150, 150, 150);
+camera.position.set(-500, 150, 150);
 
 
 var controls = new THREE.OrbitControls(camera, canvas);
@@ -90,7 +90,7 @@ controls.addEventListener( 'change', render );
 
 var render = function () {
 	requestAnimationFrame( render );
-	camera.lookAt(new THREE.Vector3(80, 80, 80));
+	camera.lookAt(new THREE.Vector3(60, 60, 80));
 	var labelRotate = labels.children;	
 	for(var i = 0; i < labelRotate.length; i++){
 		labelRotate[i].lookAt(camera.position);
