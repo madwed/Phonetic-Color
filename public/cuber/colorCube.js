@@ -1,24 +1,24 @@
 (function (){
 var scene = new THREE.Scene();
 var canvas = document.getElementById("phoCubes");
-var camera = new THREE.PerspectiveCamera( 20, canvas.width/canvas.height, 0.1, 2000 );
+var camera = new THREE.PerspectiveCamera( 20, canvas.width/canvas.height, 0.1, 1000 );
 
-var renderer = new THREE.WebGLRenderer({canvas: canvas});
+var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, precision: "highp"});
 renderer.setSize( canvas.width, canvas.height );
 renderer.setClearColor( 0xffffff, 1 );
 
 var vowels = { 
-	AA: [ '0', '0', '0' ], AE: [ '0', '3', '1' ], AH: [ '0', '0', '2' ], AO: [ '1', '0', '2' ], e: [ '0', '3', '3' ],
-	EH: [ '0', '3', '2' ], IH: [ '0', '2', '4' ], IY: [ '0', '3', '5' ], o: [ '1', '0', '3' ], UH: [ '1', '1', '4' ],
-	UW: [ '1', '0', '5' ] 
+	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], e: [0, 3, 3],
+	EH: [0, 3, 2], IH: [0, 2, 4], IY: [0, 3, 5], o: [1, 0, 3], UH: [1, 1, 4],
+	UW: [1, 0, 5] 
 };
 
 var consonants = { 
-	B: [ '5', '0', '0' ], CH: [ '4', '2', '4' ], D: [ '5', '0', '3' ], DH: [ '2', '0', '2' ], F: [ '2', '2', '1' ],
-	G: [ '5', '0', '6' ], HH: [ '2', '1', '7' ], JH: [ '4', '0', '4' ], K: [ '5', '2', '6' ], L: [ '0', '0', '3' ],
-	M: [ '6', '0', '0' ], N: [ '6', '0', '3' ], NG: [ '6', '0', '6' ], P: [ '5', '2', '0' ], R: [ '1', '0', '3' ],
-	S: [ '3', '2', '3' ], SH: [ '3', '2', '4' ], T: [ '5', '2', '3' ], TH: [ '1', '2', '2' ], V: [ '1', '0', '1' ],
-	W: [ '0', '0', '0' ], Y: [ '0', '0', '5' ], Z: [ '2', '0', '3' ], ZH: [ '2', '0', '4' ] 
+	B: [5, 0, 0], CH: [4, 2, 4], D: [5, 0, 3], DH: [2, 0, 2], F: [2, 2, 1],
+	G: [5, 0, 6], HH: [2, 1, 7], JH: [4, 0, 4], K: [5, 2, 6], L: [0, 0, 3],
+	M: [6, 0, 0], N: [6, 0, 3], NG: [6, 0, 6], P: [5, 2, 0], R: [1, 0, 3],
+	S: [3, 2, 3], SH: [3, 2, 4], T: [5, 2, 3], TH: [1, 2, 2], V: [1, 0, 1],
+	W: [0, 0, 0], Y: [0, 0, 5], Z: [2, 0, 3], ZH: [2, 0, 4] 
 };
 
 var cubeGeometry = new THREE.BoxGeometry( 8, 8, 8 );
@@ -31,22 +31,21 @@ var font = {
 
 var color = new THREE.Color();
 var labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
-var letter, phoneme;
 var labelOffset = 4;
 var scale = 150;
 
 var vowelScaler = function (phoneme) {
-	var roundness = Number.parseInt(phoneme[0]) / 5,
-		backness = Number.parseInt(phoneme[1]) / 10,
-		height = Number.parseInt(phoneme[2]) / 10,
+	var roundness = phoneme[0] / 5,
+		backness = phoneme[1] / 10,
+		height = phoneme[2] / 10,
 		axes = [roundness, backness, height];
 		return axes;
 };
 
 var consonantScaler = function (phoneme) {
-	var manner = Number.parseInt(phoneme[0]) / 10 + 0.3,
-		voicing = Number.parseInt(phoneme[1]) / 11.666 + 0.4,
-		place = Number.parseInt(phoneme[2]) / 14 + 0.5,
+	var manner = phoneme[0] / 10 + 0.3,
+		voicing = phoneme[1] / 11.666 + 0.4,
+		place = phoneme[2] / 14 + 0.5,
 		axes = [manner, voicing, place];
 		return axes;
 };
