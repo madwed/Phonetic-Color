@@ -13,12 +13,33 @@
 		canvas = document.getElementById("canvas"),
 		ctx = canvas.getContext("2d");
 
+
+
 	function draw (codeString) {
+		console.log(codeString);
+		var nemes = codeString.split("J");
 		var color, phoWidth = 2, phoHeight = 8,
 			margin = 40, rightMargin = canvas.width - margin - phoWidth,
 			row = margin, col = margin / 4, spacing = 1,
+			
 			index, phoneme,
 			phoLength = codeString.length;
+		
+		var canvHeight2 = nemes.reduce(function(prev, current){
+			prev[1] += current.length * phoWidth;
+			if(prev[1] > rightMargin){
+				prev[1] = current.length * phoWidth + margin;
+				prev[0] += 1;
+			}
+			prev[1] += phoWidth * 2;
+			return prev;
+		}, [1, 0]);
+		canvHeight2 = (canvHeight2[0] * phoHeight) + (canvHeight2[0] - 1 * spacing) + col + col;
+
+		canvas.height = canvHeight2;
+		canvas.style.height = canvHeight2 + "px";
+
+
 		for(index = 0; index < phoLength; index++){
 			phoneme = codeString[index];
 			color = codeToColor[phoneme];

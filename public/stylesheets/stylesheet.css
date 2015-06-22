@@ -37,8 +37,8 @@ body{
 #canvas{
 	position: absolute;
 	display: block;
-	right: 100px;
-	bottom: 3px;
+	right: 10%;
+	top: 20em;
 	width: 740px;
 	height: 350px;
 	border-top: 4px solid black;

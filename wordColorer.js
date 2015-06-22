@@ -46,7 +46,7 @@ var colorDict = makeDict(colorPath, colorEntry);
 var stringToPhonemes = function (string) {
 	if(!string){ return []; }
 	string = string.replace(/[^\w\s|_]/g, "");
-	var words = string.split(/\s/);
+	var words = string.split(/\s+/);
 	var phonemes = [];
 	phonemes = words.map(function (word) {
 		return dict[word.toUpperCase()];
