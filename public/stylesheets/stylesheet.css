@@ -1,5 +1,11 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    /*border-bottom: 10px solid black;*/
+}
+
 body{
-	background-color: white;
+	margin: 0em	0em 0em 1em;
 }
 
 #mapper, #cuber{
@@ -21,20 +27,82 @@ body{
 	display: block;
 }
 
-
-
 #text_field{
-	width: 854px;
-	height: 140px;
+	width: 754px;
+	height: 190px;
 	display: inline-block;
+	border-radius: 5px 20px;	
 }
 
 #canvas{
+	position: absolute;
 	display: block;
-	width: 840px;
-	border: 10px solid black;
-	margin: auto;
+	right: 100px;
+	bottom: 3px;
+	width: 740px;
+	height: 350px;
+	border-top: 4px solid black;
+	border-right: 8px solid black;
+	border-bottom: 0px solid black;
+	border-left: 8px solid black;
+	border-radius: 25px 40px 60px 50px;
+	margin: 0px auto;
 }
 
+#cuber{
+	position: absolute;
+	width: 500px;
+	height: 100px;
+	right: -68px;
+	top: -10px;
+	-ms-transform: rotate(3deg); /* IE 9 */
+    -webkit-transform: rotate(3deg); /* Chrome, Safari, Opera */
+    transform: rotate(3deg);
+}
+
+#phoCubes{
+	position: relative;	
+	height: 300px;
+	top: -10px;
+	border-radius: 25px 100px;
+	-ms-transform: rotate(-3deg); /* IE 9 */
+    -webkit-transform: rotate(-3deg); /* Chrome, Safari, Opera */
+    transform: rotate(-3deg);
+	
+}
+
+#cubeCanvLeft{
+	position: relative;
+	top: -300px;
+	height: 300px;
+	border-left: solid black 7px;
+	border-bottom-left-radius: 100px;
+	margin: 0px;
+}
+
+#cubeCanvBottom{
+	position: relative;
+	top: -602px;
+	height: 300px;
+	width: 280px;
+	border-bottom: solid black 2px;
+	border-bottom-left-radius: 100px;
+	margin: 0px;
+}
+
+#cubeMark{
+	position: relative;
+	height: 200px;
+	width: 200px;
+	right: -281px;
+	top: -606px;
+	border-top: solid black 2px;
+	border-right: solid black 1px;
+	border-top-right-radius: 200px;
+	-ms-transform: rotate(-1deg); /* IE 9 */
+    -webkit-transform: rotate(-1deg); /* Chrome, Safari, Opera */
+    transform: rotate(-1deg);
+    margin: 0px;
+}
 
 

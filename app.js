@@ -1,18 +1,18 @@
 (function () {
+
 "use strict";
 
-var path = require("path");
-var express = require("express");
-var logger = require("morgan");
-var bodyParser = require("body-parser");
-var app = express();
+var path = require("path"),
+	express = require("express"),
+	routes = require(path.join(__dirname, "router.js")),
+	logger = require("morgan"),
+	bodyParser = require("body-parser"),
+	app = express();
+
 
 app.use(logger("dev"));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use(bodyParser.text());
-
-var routes = require(path.join(__dirname, "router.js"));
-
 app.use("/", routes);
 
 app.listen(3000, function (err) {

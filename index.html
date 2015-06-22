@@ -2,26 +2,32 @@
 <html>
 <head>
 	<title>Color by Phoneme</title>
-	<script src="/js/request.js"></script>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
 	<h1>Phonetic Color</h1>
 	<div id="mapper">
 		<div id="words">
-			<label for="text_field">Text:</label>
 			<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
-			<input type="submit" value="Submit" id="submit" onclick="postText()"/>
+			<input type="submit" value="Submit" id="submit" />
 			<textarea id="text_field"></textarea>
 			
 			
 		</div>
-		<canvas id="canvas" width="840"></canvas>
+		<canvas id="canvas" width="740"></canvas>
 	</div>
 	<div id="cuber">
-		<canvas id="phoCubes"></canvas>
+		<canvas id="phoCubes" width="500" height="300"></canvas>
+		<div id="cubeCanvLeft"></div>
+		<div id="cubeCanvBottom"></div>
+		<div id="cubeMark"></div>
 	</div>
+	<script src="/js/request.js"></script>
 	<script src="/js/drawPhonemes.js"></script>
+	<script type="text/javascript" src="/cuber/three.min.js"></script>
+	<script type="text/javascript" src="/cuber/OrbitControls.js"></script>
+	<script type="text/javascript" src="/cuber/helvetiker_regular.typeface.js"></script>
+	<script type="text/javascript" src="/cuber/colorCube.js"></script>
 	
 </body>
 </html>
