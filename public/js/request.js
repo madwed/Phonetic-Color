@@ -116,13 +116,15 @@
 			keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
 			swatches[i].position.x = startX + swatchSize / 2;
 			swatches[i].position.y = startY + swatchSize / 2;
+			console.log(swatches[i].phoneme, swatches[i].position.x, swatches[i].position.y);
 			startX += 65;
 		}
 		function updateKeyCanvas(x, y){ 
 			var updateSwatch;
+			console.log(x, y);
 			for(var i = 0; i < swatches.length; i++){
 				var swatch = swatches[i];
-				if(Math.abs(swatch.position.x - x) < swatchSize / 2 &&  Math.abs(swatch.position.y - y) < swatchSize / 2){
+				if(Math.abs(swatch.position.x - x) < swatchSize / 2 + 10 &&  Math.abs(swatch.position.y - y) < swatchSize / 2 + 10){
 					updateSwatch = swatch;
 					break;
 				}
