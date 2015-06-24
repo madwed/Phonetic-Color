@@ -23,7 +23,22 @@
 		textCanvas = document.getElementById("textCanvas"),
 		textCtx = textCanvas.getContext("2d"),
 		keyCanvas = document.getElementById("keyCanvas"),
-		keyCtx = keyCanvas.getContext("2d");
+		keyCtx = keyCanvas.getContext("2d"),
+		keyRect = keyCanvas.getBoundingClientRect(),
+		colorBox = document.getElementById("color");
+
+	
+       var reg = /^#(.)\1(.)\2(.)\3$/;
+    
+    // this is where colorpicker created
+    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555");
+    
+    cp.onchange = function (clr) {
+        colorBox.value = clr.replace(reg, "#$1$2$3");
+        colorBox.style.background = clr;
+        colorBox.style.color = Raphael.rgb2hsb(clr).b < .5 ? "#fff" : "#000";
+    };
+    // that’s it. Too easy
 
 
 
@@ -79,13 +94,18 @@
 		var swatches = [];
 		keyCtx.font = "20px sans-serif";
 		for(var key in customCode){
-			swatches.push({key: key, phoneme: customCode[key].phoneme, color: customCode[key].color});
+			swatches.push({
+				key: key, 
+				phoneme: customCode[key].phoneme, 
+				color: customCode[key].color, 
+				position: {x:0, y:0}
+			});
 		}
 		swatches.sort(function(a, b){
 			if(a.phoneme > b.phoneme) { return 1; }
 			return -1;
 		});
-		var startX = 30, startY = 40;
+		var startX = 30, startY = 20, swatchSize = 20;
 		for(var i = 0; i < swatches.length; i++){
 			if(startX > 350){
 				startY += 35;
@@ -93,11 +113,62 @@
 			}
 			keyCtx.fillStyle = swatches[i].color;
 			keyCtx.fillText(swatches[i].phoneme, startX + 25, startY+18);	
-			keyCtx.fillRect(startX, startY, 20, 20);
-			startX += 70;
-		}	
+			keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
+			swatches[i].position.x = startX + swatchSize / 2;
+			swatches[i].position.y = startY + swatchSize / 2;
+			startX += 65;
+		}
+		function updateKeyCanvas(x, y){ 
+			var updateSwatch;
+			for(var i = 0; i < swatches.length; i++){
+				var swatch = swatches[i];
+				if(Math.abs(swatch.position.x - x) < swatchSize / 2 &&  Math.abs(swatch.position.y - y) < swatchSize / 2){
+					updateSwatch = swatch;
+					break;
+				}
+			}
+			if(updateSwatch){
+				var startX = updateSwatch.position.x - swatchSize / 2;
+				var startY = updateSwatch.position.y - swatchSize / 2;
+				keyCtx.clearRect(startX - 5, startY - 5, 65, 35);
+				keyCtx.fillStyle = colorBox.value;
+				keyCtx.fillText(updateSwatch.phoneme, startX + 25, startY+18);	
+				keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
+				customCode[updateSwatch.key].color = colorBox.value;
+				drawText(lastString);
+			}
+
+		}
+		function keyClickHandler (event){
+			event.preventDefault();
+			var eventDoc, doc, body;
+
+		    event = event || window.event; // IE-ism
+
+		    // If pageX/Y aren't available and clientX/Y are,
+		    // calculate pageX/Y - logic taken from jQuery.
+		    // (This is to support old IE)
+		    if (event.pageX === null && event.clientX !== null) {
+		        eventDoc = (event.target && event.target.ownerDocument) || document;
+		        doc = eventDoc.documentElement;
+		        body = eventDoc.body;
+
+		        event.pageX = event.clientX +
+		          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+		          (doc && doc.clientLeft || body && body.clientLeft || 0);
+		        event.pageY = event.clientY +
+		          (doc && doc.scrollTop || body && body.scrollTop || 0) -
+		          (doc && doc.clientTop || body && body.clientTop || 0 );
+		    }
+		    var rect = keyCanvas.getBoundingClientRect();
+		    var x = Math.round((event.pageX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
+		    var y = Math.round((event.pageY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
+		    updateKeyCanvas(x,y);
+		}
+		keyCanvas.addEventListener("click", keyClickHandler);
+		
 	}
-	drawKeys();
+	
 
 	function postText() {
 		var string = document.getElementById("text_field").value,
@@ -106,6 +177,7 @@
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				lastString = xmlhttp.responseText;
 				drawText(lastString);
+				console.log(lastString);
 			}
 		};
 		xmlhttp.open("POST", "/submit", true);
@@ -114,6 +186,6 @@
 		xmlhttp.send(string);
 	}
 
-	submitButton.addEventListener("click", postText);
-
+	submitButton.addEventListener("mousedown", postText);
+	drawKeys();
 })();

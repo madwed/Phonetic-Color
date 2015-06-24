@@ -22,7 +22,8 @@ body{
 	width: 101%;
 	height: 190px;
 	display: inline-block;
-	border-radius: 5px 20px;	
+	border-radius: 5px 20px;
+	resize: none;
 }
 
 #textCanvas{
@@ -39,6 +40,10 @@ body{
 	position: fixed;
 	left: 1.5em;
 	width: 400px;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none; 
 	
 }
 
@@ -57,16 +62,26 @@ body{
 
 #keyCanvas{
 	position: relative;
-	height: 300px;
-	width: 400px;
+	height: 280px;
+	width: 370px;
 	top: -1em;
-	right: -1em;
-	border-top: 0px solid black;
-	border-right: 6px solid black;
+	right: 1em;
+	border-top: 1px solid black;
+	border-right: 15px solid black;
 	border-bottom: 0px solid black;
 	border-left: 2px solid black;
-	border-radius: 100px 50px;
+	border-radius: 80px 50px;
 	
+}
+
+#color{
+	position: relative;
+	bottom: 252px;
+	left: 356px;
+	background-color: #655555;
+	width: 13px;
+	height: 150px;
+	border: 1px solid white;
 }
 
 /*#cubeCanvLeft{
