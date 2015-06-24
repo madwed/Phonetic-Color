@@ -8,8 +8,8 @@ renderer.setSize( canvas.width, canvas.height );
 renderer.setClearColor( 0xffffff, 1 );
 
 var vowels = { 
-	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], e: [0, 3, 3],
-	EH: [0, 3, 2], IH: [0, 2, 4], IY: [0, 3, 5], o: [1, 0, 3], UH: [1, 1, 4],
+	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], E: [0, 3, 3],
+	EH: [0, 3, 2], IH: [0, 2, 4], IY: [0, 3, 5], O: [1, 0, 3], UH: [1, 1, 4],
 	UW: [1, 0, 5] 
 };
 
@@ -80,7 +80,7 @@ addToModel(consonants, consonantScaler);
 scene.add(labels);
 
 
-camera.position.set(-500, 150, 150);
+camera.position.set(-213, 406, 289);
 
 
 var controls = new THREE.OrbitControls(camera, canvas);

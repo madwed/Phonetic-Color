@@ -5,8 +5,9 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-	<h1>Phonetic Color</h1>
+	
 	<div id="mapper">
+		<h1></h1>
 		<div id="words">
 			<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
 			<input type="submit" value="Submit" id="submit" />
@@ -14,10 +15,12 @@
 			
 			
 		</div>
-		<canvas id="canvas" width="740"></canvas>
+		<canvas id="textCanvas" width="740px"></canvas>
 	</div>
 	<div id="cuber">
-		<canvas id="phoCubes" width="400" height="300"></canvas>
+		<h1>Phonetic Color</h1>
+		<canvas id="phoCubes" width="400px" height="300px"></canvas>
+		<canvas id="keyCanvas" width="400px" height="300px"></canvas>
 	</div>
 	<script src="/js/request.js"></script>
 	<script src="/js/drawPhonemes.js"></script>
