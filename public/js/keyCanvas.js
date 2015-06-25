@@ -2,12 +2,13 @@
 
 var keyCanvas = document.getElementById("keyCanvas"),
 		keyCtx = keyCanvas.getContext("2d"),
+		wheelBox = document.getElementById("colorWheel");
 		keyRect = keyCanvas.getBoundingClientRect(),
 		colorBox = document.getElementById("color");
 		var reg = /^#(.)\1(.)\2(.)\3$/;
     
     // this is where colorpicker created
-    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555");
+    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555", wheelBox);
     
     cp.onchange = function (clr) {
         colorBox.value = clr.replace(reg, "#$1$2$3");
