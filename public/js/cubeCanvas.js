@@ -102,11 +102,15 @@ var render = function () {
 	renderer.render(scene, camera);
 };
 
-console.log(cubes);
+
 var updateCube = function(key, color){
 	cubes[key].cube.material.color = new THREE.Color( color );
 	cubes[key].label.material.color = new THREE.Color( color );
-}
+};
+
+var reset = function(){
+
+};
 
 Operator.prototype.updateCube = updateCube;
 

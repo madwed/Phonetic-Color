@@ -2,13 +2,13 @@
 
 var keyCanvas = document.getElementById("keyCanvas"),
 		keyCtx = keyCanvas.getContext("2d"),
-		wheelBox = document.getElementById("colorWheel");
 		keyRect = keyCanvas.getBoundingClientRect(),
 		colorBox = document.getElementById("color");
 		var reg = /^#(.)\1(.)\2(.)\3$/;
     
     // this is where colorpicker created
-    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555", wheelBox);
+    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555");
+    colorBox.value = "#655555"
     
     cp.onchange = function (clr) {
         colorBox.value = clr.replace(reg, "#$1$2$3");
@@ -32,7 +32,6 @@ var keyCanvas = document.getElementById("keyCanvas"),
 			if(a.phoneme > b.phoneme) { return 1; }
 			return -1;
 		});
-		console.log(swatches);
 		var startX = 30, startY = 20, swatchSize = 20;
 
 		Operator.prototype.drawKeys = function(){
@@ -67,9 +66,12 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				keyCtx.fillText(updateSwatch.phoneme, startX + 25, startY+18);	
 				keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
 				customCode[updateSwatch.key].color = colorBox.value;
-				this.drawContent(this.lastString);
+				if(this.lastString){
+					this.drawContent(this.lastString);
+				}
 				this.updateCube(updateSwatch.phoneme, colorBox.value);
 			}
 		}
 	}
+
 })();

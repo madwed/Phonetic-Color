@@ -1,12 +1,13 @@
 (function(){
 
 var textCanvas = document.getElementById("textCanvas"),
-textCtx = textCanvas.getContext("2d");
+textCtx = textCanvas.getContext("2d"),
+contentBox = document.getElementById("mapper");
 
 Operator.prototype.drawContent = function (codeString) {
 	var codedWords = codeString.split("J"), codedWordsLength = codedWords.length,
 		phoWidth = 4, phoHeight = 20,
-		margin = 40, rightMargin = textCanvas.width - margin - phoWidth,
+		margin = 40, rightMargin = contentBox.clientWidth - margin - phoWidth,
 		col = margin, row = margin / 4, newLine = phoHeight + 2, space = phoWidth * 2,
 		word, codedWord, codedLength, canvasHeight;
 	//Calculate the height the ca nvas should be for the input
@@ -21,7 +22,9 @@ Operator.prototype.drawContent = function (codeString) {
 	}, [phoHeight, 0]);
 	canvasHeight = canvasHeight[0] + row + row;
 	textCanvas.height = canvasHeight;
+	textCanvas.width = contentBox.clientWidth;
 	textCanvas.style.height = canvasHeight + "px";
+	textCanvas.style.width = contentBox.clientWidth + "px";
 
 	//Decode the words into arrays of colors
 	codedWords = codedWords.map(function(word){

@@ -4,6 +4,7 @@
 
 function Operator () {
 	//Phoneme, color, 3D reference
+	this.resetFuncs = [];
 	this.defaultCode = {
 		a: {phoneme: "AA", color: "#000000"}, b: {phoneme: "AE", color: "#004c19"}, c: {phoneme: "AH", color: "#000033"},
 		d: {phoneme: "AO", color: "#330033"}, e: {phoneme: "E", color: "#004c4c"}, f: {phoneme: "EH", color: "#004c33"},
@@ -19,20 +20,22 @@ function Operator () {
 		H: {phoneme: "Z", color: "#7f66b6"}, I: {phoneme: "ZH", color: "#7f66c8"}
 	},
 		//Clone the defaultCode
+		console.log(this.defaultCode),
 		this.customCode = JSON.parse(JSON.stringify(this.defaultCode)),
+		console.log(this.defaultCode),
 		this.lastString = "";
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
 	var self = this;
 	var postText = function () {
-		console.log("hello");
 		var string = document.getElementById("text_field").value,
 			xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-				console.log("hi");
 				self.lastString = xmlhttp.responseText;
-				self.drawContent(self.lastString);
+				if(self.lastString){
+					self.drawContent(self.lastString);	
+				}
 			}
 		};
 		xmlhttp.open("POST", "/submit", true);
@@ -73,8 +76,17 @@ function Operator () {
 	this.initKeys();
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
+	var defaultButton = document.getElementById("default");
+	var reset = this.reset;
+	defaultButton.addEventListener("click", this.reset);
 
 }
 
+Operator.prototype.reset = function(){
+	console.log(this.defaultCode);
+	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
+	console.log(2);
+	this.drawKeys;
+}
 
 

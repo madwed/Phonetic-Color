@@ -8,17 +8,17 @@
 	
 	<div id="mapper">
 		<h1></h1>
-		<div id="words">
-			<!-- Is there a way to get value from #text_field w/o a document.getElementById -->
-			<input type="submit" value="Submit" id="submit" />
+			<button type="submit" id="submit">Submit</button>
 			<textarea id="text_field"></textarea>
-			
-			
-		</div>
-		<canvas id="textCanvas" width="740px"></canvas>
+		<canvas id="textCanvas"></canvas>
 	</div>
 	<div id="cuber">
 		<h1>Phonetic Color</h1>
+		<div id="buttons">
+			<button id="black" type="button">Black</button>
+			<button id="white" type="button">White</button>
+			<button id="default" type="button">Default</button>
+		</div>
 		<canvas id="keyCanvas" width="370px" height="280px"></canvas>
 		<div id="color"></div>
 		<div id="colorWheel"></div>

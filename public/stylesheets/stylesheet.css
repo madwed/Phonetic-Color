@@ -1,3 +1,8 @@
+/*Disable the blue box in chrome*/
+*:focus{
+	outline: 0;
+}
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -10,7 +15,7 @@ body{
 
 #mapper{
 	position: absolute;
-	width: 740px;
+	width: 57vw;
 	right: 5%;
 }
 
@@ -36,6 +41,10 @@ body{
 	border-radius: 25px 40px 60px 50px;
 }
 
+h1{
+	margin: .5em;
+}
+
 #cuber{
 	position: fixed;
 	left: 1.5em;
@@ -47,24 +56,29 @@ body{
 	
 }
 
-#phoCubes{
-	position: relative;	
-	height: 300px;
-	width: 400px;
-	top: -16em;
-	border-top: 5px solid black;
-	border-right: 1px solid black;
-	border-bottom: 3px solid black;
-	border-left: 2px solid black;
-	border-radius: 25px 100px;
-	
+button{
+	color: white;
+	border: 1px solid black;
+	border-bottom: 0px solid black;
+	border-radius: 8px 10px 2px 8px;
+	background-color: black;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	-o-user-select: none; 
 }
+
+#buttons{
+	position: relative;
+	left: 11em;
+}
+
+
 
 #keyCanvas{
 	position: relative;
 	height: 280px;
 	width: 370px;
-	top: -1em;
 	right: 1em;
 	border-top: 1px solid black;
 	border-right: 15px solid black;
@@ -85,12 +99,25 @@ body{
 }
 
 #colorWheel{
-	position: relative;
-	height: 100px;
-	width: 100px;
+	position: fixed;
 	top: -254px;
 	left: 334px;
 }
+
+#phoCubes{
+	position: relative;	
+	height: 300px;
+	width: 400px;
+	top: -16em;
+	border-top: 5px solid black;
+	border-right: 1px solid black;
+	border-bottom: 3px solid black;
+	border-left: 2px solid black;
+	border-radius: 25px 100px;
+	
+}
+
+
 
 /*#cubeCanvLeft{
 	position: relative;
