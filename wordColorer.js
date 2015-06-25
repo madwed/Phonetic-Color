@@ -51,7 +51,6 @@ var stringToPhonemes = function (string) {
 	phonemes = words.map(function (word) {
 		return dict[word.toUpperCase()];
 	});
-	console.log(string, phonemes);
 	return phonemes;
 };
 

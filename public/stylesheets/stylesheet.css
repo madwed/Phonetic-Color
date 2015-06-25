@@ -51,7 +51,7 @@ body{
 	position: relative;	
 	height: 300px;
 	width: 400px;
-	top: -10px;
+	top: -10em;
 	border-top: 5px solid black;
 	border-right: 1px solid black;
 	border-bottom: 3px solid black;
