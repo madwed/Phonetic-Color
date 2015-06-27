@@ -109,11 +109,15 @@ var updateCube = function(key, color){
 };
 
 var reset = function(){
-
+	var customCode = this.customCode;
+	Object.keys(customCode).forEach(function(code){
+		var phoneme = customCode[code];
+		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
+	});
 };
 
 Operator.prototype.updateCube = updateCube;
-
+Operator.prototype.resetCubes = reset;
 
 render();
 

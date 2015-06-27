@@ -97,6 +97,8 @@
             t.y = y;
 
             // events
+            var wheel = document.getElementById("colorWheel");
+            var wheelRect = wheel.getBoundingClientRect();
             t.ring.drag(function (dx, dy, x, y) {
                 t.docOnMove(dx, dy, x, y);
             }, function (x, y) {
@@ -110,6 +112,7 @@
             }, function (x, y) {
                 t.clrOnTheMove = true;
                 t.setSB(x - t.x, y - t.y);
+                //t.setSB(x - t.x, 40 + t.y);
             }, function () {
                 t.clrOnTheMove = false;
             });

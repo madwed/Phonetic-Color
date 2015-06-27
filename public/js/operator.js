@@ -18,11 +18,9 @@ function Operator () {
 		B: {phoneme: "SH", color: "#9991c8"}, C: {phoneme: "T", color: "#cc91b6"}, D: {phoneme: "TH", color: "#6691a3"},
 		E: {phoneme: "V", color: "#666691"}, F: {phoneme: "W", color: "#4c667f"}, G: {phoneme: "Y", color: "#4c66da"},
 		H: {phoneme: "Z", color: "#7f66b6"}, I: {phoneme: "ZH", color: "#7f66c8"}
-	},
+	};
 		//Clone the defaultCode
-		console.log(this.defaultCode),
-		this.customCode = JSON.parse(JSON.stringify(this.defaultCode)),
-		console.log(this.defaultCode),
+		this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
 		this.lastString = "";
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
@@ -34,7 +32,7 @@ function Operator () {
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				self.lastString = xmlhttp.responseText;
 				if(self.lastString){
-					self.drawContent(self.lastString);	
+					self.drawContent(self.lastString);
 				}
 			}
 		};
@@ -45,48 +43,31 @@ function Operator () {
 	};
 	postText.bind(this);
 	submitButton.addEventListener("mousedown", postText);
-	
 
-	var keyClickHandler = function (event){
+	var keyClickHandler = function (event) {
 		event.preventDefault();
-		var eventDoc, doc, body;
 
-	    event = event || window.event; // IE-ism
+		event = event || window.event; // IE-ism
 
-	    // If pageX/Y aren't available and clientX/Y are,
-	    // calculate pageX/Y - logic taken from jQuery.
-	    // (This is to support old IE)
-	    if (event.pageX === null && event.clientX !== null) {
-	        eventDoc = (event.target && event.target.ownerDocument) || document;
-	        doc = eventDoc.documentElement;
-	        body = eventDoc.body;
-
-	        event.pageX = event.clientX +
-	          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-	          (doc && doc.clientLeft || body && body.clientLeft || 0);
-	        event.pageY = event.clientY +
-	          (doc && doc.scrollTop || body && body.scrollTop || 0) -
-	          (doc && doc.clientTop || body && body.clientTop || 0 );
-	    }
-	    var rect = keyCanvas.getBoundingClientRect();
-	    var x = Math.round((event.pageX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
-	    var y = Math.round((event.pageY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
-	    this.updateKeyCanvas(x,y);
-	}
+		//Doesn't support old IE
+		var rect = keyCanvas.getBoundingClientRect();
+		var x = Math.round((event.clientX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
+		var y = Math.round((event.clientY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
+		this.updateKeyCanvas(x, y);
+	};
 	this.initKeys();
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
 	var defaultButton = document.getElementById("default");
-	var reset = this.reset;
-	defaultButton.addEventListener("click", this.reset);
+	defaultButton.addEventListener("click", this.reset.bind(this));
 
 }
 
-Operator.prototype.reset = function(){
-	console.log(this.defaultCode);
+Operator.prototype.reset = function () {
 	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
-	console.log(2);
-	this.drawKeys;
-}
+	this.drawKeys();
+	this.drawContent(this.lastString);
+	this.resetCubes();
+};
 
 
