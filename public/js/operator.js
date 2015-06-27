@@ -22,7 +22,7 @@ function Operator () {
 		//Clone the defaultCode
 		console.log(this.defaultCode),
 		this.customCode = JSON.parse(JSON.stringify(this.defaultCode)),
-		console.log(this.defaultCode),
+		console.log(this.defaultCode)
 		this.lastString = "";
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
@@ -52,25 +52,11 @@ function Operator () {
 		var eventDoc, doc, body;
 
 	    event = event || window.event; // IE-ism
-
-	    // If pageX/Y aren't available and clientX/Y are,
-	    // calculate pageX/Y - logic taken from jQuery.
-	    // (This is to support old IE)
-	    if (event.pageX === null && event.clientX !== null) {
-	        eventDoc = (event.target && event.target.ownerDocument) || document;
-	        doc = eventDoc.documentElement;
-	        body = eventDoc.body;
-
-	        event.pageX = event.clientX +
-	          (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-	          (doc && doc.clientLeft || body && body.clientLeft || 0);
-	        event.pageY = event.clientY +
-	          (doc && doc.scrollTop || body && body.scrollTop || 0) -
-	          (doc && doc.clientTop || body && body.clientTop || 0 );
-	    }
+	    //Doesn't support old IE
 	    var rect = keyCanvas.getBoundingClientRect();
-	    var x = Math.round((event.pageX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
-	    var y = Math.round((event.pageY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
+	    var x = Math.round((event.clientX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
+	    var y = Math.round((event.clientY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
+	    console.log(y, "y", event.clientY, "event.pageY", rect.top, "rect.top", rect.bottom - rect.top, "rect.bottom - rect.top", keyCanvas.height, "keyCanvas.height");
 	    this.updateKeyCanvas(x,y);
 	}
 	this.initKeys();

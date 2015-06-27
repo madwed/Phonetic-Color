@@ -42,7 +42,7 @@ body{
 }
 
 h1{
-	margin: .5em;
+	margin: .25em;
 }
 
 #cuber{
@@ -98,10 +98,12 @@ button{
 	border: 1px solid white;
 }
 
-#colorWheel{
-	position: fixed;
+.colorWheeler{
+	position: relative;
 	top: -254px;
 	left: 334px;
+	width: 100px;
+	height: 100px;
 }
 
 #phoCubes{

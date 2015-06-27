@@ -4,17 +4,16 @@ var keyCanvas = document.getElementById("keyCanvas"),
 		keyCtx = keyCanvas.getContext("2d"),
 		keyRect = keyCanvas.getBoundingClientRect(),
 		colorBox = document.getElementById("color");
-		var reg = /^#(.)\1(.)\2(.)\3$/;
     
-    // this is where colorpicker created
-    var cp = Raphael.colorwheel(keyRect.right - 35, keyRect.bottom - 80, 100, "#655555");
-    colorBox.value = "#655555"
-    
-    cp.onchange = function (clr) {
-        colorBox.value = clr.replace(reg, "#$1$2$3");
-        colorBox.style.background = clr;
-        colorBox.style.color = Raphael.rgb2hsb(clr).b < .5 ? "#fff" : "#000";
-    };
+    var colors = jsColorPicker('input.colorWheeler', {
+		customBG: '#222',
+		readOnly: true,
+		// patch: false,
+		init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
+		  elm.style.backgroundColor = elm.value;
+		  elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+		}
+    });
 
     Operator.prototype.initKeys = function(){
     	var swatches = [],
