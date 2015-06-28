@@ -10,7 +10,7 @@ html, body {
 }
 
 body{
-	margin: 0em	0em 0em 1em;
+	margin: 0em;
 }
 
 #mapper{
@@ -118,7 +118,18 @@ button{
 	
 }
 
-#
+#sidebar{
+	position: fixed;
+	right: -7em;
+	top: 11em;
+	-ms-transform: rotate(-90deg); 
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+#sidebar button{
+	font-size: 1.5em;
+}
 
 
 
