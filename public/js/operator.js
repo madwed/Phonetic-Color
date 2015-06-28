@@ -34,6 +34,7 @@ function Operator () {
 				if(self.lastString){
 					self.drawContent(self.lastString);
 					self.tally(self.lastString);
+					self.wordy(self.lastString);
 				}
 			}
 		};
