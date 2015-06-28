@@ -58,18 +58,35 @@ function Operator () {
 		this.updateKeyCanvas(x, y);
 	};
 	this.initKeys();
+	this.drawKeys(true);
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
 	var defaultButton = document.getElementById("default");
 	defaultButton.addEventListener("click", this.reset.bind(this));
+	var blackButton = document.getElementById("black");
+	var blacken = function () { this.color("#000000"); };
+	blackButton.addEventListener("click", blacken.bind(this));
+	var whiteButton = document.getElementById("white");
+	var whiten = function () { this.color("#ffffff"); };
+	whiteButton.addEventListener("click", whiten.bind(this));
 
 }
 
 Operator.prototype.reset = function () {
 	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
-	this.drawKeys();
+	console.log(this.customCode);
+	this.drawKeys(true);
 	this.drawContent(this.lastString);
 	this.resetCubes();
 };
 
+Operator.prototype.color = function (color) {
+	var code, customCode = this.customCode;
+	for(code in customCode){
+		customCode[code].color = color;
+	}
+	this.drawKeys(true);
+	this.drawContent(this.lastString);
+	this.resetCubes();
+}
 

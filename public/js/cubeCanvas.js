@@ -34,6 +34,7 @@ var color = new THREE.Color();
 var labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
 var labelOffset = 4;
 var scale = 150;
+var gray = parseInt("cccccc", 16);
 
 var vowelScaler = function (phoneme) {
 	var roundness = phoneme[0] / 5,
@@ -61,12 +62,16 @@ function addToModel (phonemes, scaler) {
 		//Create the cube and label
 		var material = new THREE.MeshBasicMaterial( { color: color } );
 		var cube = new THREE.Mesh( cubeGeometry, material );
+		var cubeFrame = new THREE.BoxHelper(cube);
+		cubeFrame.material.color.setHex(gray);
 		var label = new THREE.Mesh(letter, labelMaterial);
 		scene.add( cube );
+		scene.add( cubeFrame );
 		labels.add(label);
 
 		//Set the position of each cube and label
 		cube.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
+		cubeFrame.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
 		label.position.set(phoneme[0] * scale + labelOffset, phoneme[1] * scale + labelOffset, phoneme[2] * scale + labelOffset);
 		//Build and position the outline of each label
 		var outlineMaterial1 = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide } );

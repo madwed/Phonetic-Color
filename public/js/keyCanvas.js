@@ -19,26 +19,28 @@ var keyCanvas = document.getElementById("keyCanvas"),
 	};
 
     Operator.prototype.initKeys = function(){
-		var swatches = [],
-		customCode = this.customCode;
-
-		for(var key in customCode){
-			swatches.push({
-				key: key,
-				phoneme: customCode[key].phoneme,
-				color: customCode[key].color,
-				position: {x: 0, y: 0}
-			});
-		}
-		swatches.sort(function(a, b){
-			if(a.phoneme > b.phoneme) { return 1; }
-			return -1;
-		});
-
+		var swatches = [];
 		var swatchSize = 20;
-		Operator.prototype.drawKeys = function(){
-			var startX = 30, startY = 20;
+		Operator.prototype.drawKeys = function(reset){
+			var startX = 30, startY = 20, customCode = this.customCode;
+			if(reset){
+				swatches = [];
+				for(var key in customCode){
+					swatches.push({
+						key: key,
+						phoneme: customCode[key].phoneme,
+						color: customCode[key].color,
+						position: {x: 0, y: 0}
+					});
+				}
+				swatches.sort(function(a, b){
+					if(a.phoneme > b.phoneme) { return 1; }
+					return -1;
+				});
+			}
 			keyCtx.font = "20px sans-serif";
+			keyCtx.lineWidth = 0.3;
+			keyCtx.clearRect(0, 0, keyCanvas.width, keyCanvas.height);
 			for(var i = 0; i < swatches.length; i++){
 				if(startX > 350){
 					startY += 35;
@@ -47,6 +49,9 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				keyCtx.fillStyle = swatches[i].color;
 				keyCtx.fillText(swatches[i].phoneme, startX + 25, startY + 18);
 				keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
+				keyCtx.fillStyle = "#cccccc";
+				keyCtx.strokeText(swatches[i].phoneme, startX + 25, startY + 18);
+				keyCtx.strokeRect(startX, startY, swatchSize, swatchSize);
 				swatches[i].position.x = startX + swatchSize / 2;
 				swatches[i].position.y = startY + swatchSize / 2;
 				startX += 65;
@@ -68,6 +73,9 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				keyCtx.fillStyle = colorBox.value;
 				keyCtx.fillText(updateSwatch.phoneme, startX + 25, startY + 18);
 				keyCtx.fillRect(startX, startY, swatchSize, swatchSize);
+				keyCtx.fillStyle = "#cccccc";
+				keyCtx.strokeText(swatches[i].phoneme, startX + 25, startY + 18);
+				keyCtx.strokeRect(startX, startY, swatchSize, swatchSize);
 				code[updateSwatch.key].color = colorBox.value;
 				if(this.lastString){
 					this.drawContent(this.lastString);
