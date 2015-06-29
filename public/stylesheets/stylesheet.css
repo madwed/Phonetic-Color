@@ -3,6 +3,20 @@
 	outline: 0;
 }
 
+@font-face{
+	font-family: lovelo;
+	src: url("/fonts/Lovelo Black.otf");
+}
+@font-face{
+	font-family: loveloLight;
+	src: url("/fonts/Lovelo Line Light.otf");
+}
+@font-face{
+	font-family: roboto;
+	src: url("/fonts/Roboto-ThinItalic.ttf");
+}
+
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -42,13 +56,21 @@ body{
 }
 
 h1{
-	margin: .5em 0em .2em;
+	margin: 0em 0em 0em;
+	display: inline-block;
+	font-size: 2.8em;
+	font-family: lovelo;
+}
+
+#grayTitle{
+	font-family: loveloLight;
 }
 
 #cuber{
-	position: fixed;
-	left: 1.5em;
+	float: left;
+	margin: 1em;
 	width: 400px;
+	height: 100vh;
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
@@ -58,6 +80,7 @@ h1{
 
 button{
 	color: white;
+	font-family: roboto;
 	border: 1px solid black;
 	border-bottom: 0px solid black;
 	border-radius: 8px 10px 2px 8px;
