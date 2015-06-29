@@ -17,7 +17,8 @@
 		<div id="buttons">
 			<button id="black" type="button">Black</button>
 			<button id="white" type="button">White</button>
-			<button id="default" type="button">Default</button>
+			<button id="hsl" type="buuton">HSL</button>
+			<button id="rgb" type="button">RGB</button>
 		</div>
 		<canvas id="keyCanvas" width="370px" height="280px"></canvas>
 		<div id="color"></div>
@@ -26,9 +27,12 @@
 	</div>
 
 	<div id="sidebar">
-		<button type="button">Frequency</button>
-		<button type="button">Wordiness</button>
+		<button id="frequency" type="button">Frequency</button>
+		<button id="wordiness" type="button">Wordiness</button>
 	</div>
+	<div id="frequencyChart"></div>
+	<div id="wordinessChart"></div>
+	
 	<script type="text/javascript" src="/js/raphael.js"></script>
 	<script type="text/javascript" src="/js/colorwheel.js"></script>
 	<script type="text/javascript" src="/cuber/three.min.js"></script>

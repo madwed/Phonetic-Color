@@ -59,6 +59,7 @@ function addToModel (phonemes, scaler) {
 		var phoneme = scaler(phonemes[neme]);
 		//Scale the roundness, backness and height of each vowel to fit the RGB scale of 0.0-1.0
 		color.setRGB(phoneme[0], phoneme[1], phoneme[2]);
+		console.log(neme, color.getHex().toString(16));
 		//Create the cube and label
 		var material = new THREE.MeshBasicMaterial( { color: color } );
 		var cube = new THREE.Mesh( cubeGeometry, material );
@@ -118,6 +119,7 @@ var reset = function(){
 	Object.keys(customCode).forEach(function(code){
 		var phoneme = customCode[code];
 		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
+		cubes[phoneme.phoneme].label.material.color = new THREE.Color(phoneme.color);
 	});
 };
 
