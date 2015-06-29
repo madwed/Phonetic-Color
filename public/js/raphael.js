@@ -52,7 +52,7 @@
      = (object) array of returned values from the listeners
     \*/
         eve = function (name, scope) {
-			name = String(name);
+            name = String(name);
             var e = events,
                 oldstop = stop,
                 args = Array.prototype.slice.call(arguments, 2),
@@ -112,8 +112,8 @@
             current_event = ce;
             return out.length ? out : null;
         };
-		// Undocumented. Debug only.
-		eve._events = events;
+        // Undocumented. Debug only.
+        eve._events = events;
     /*\
      * eve.listeners
      [ method ]
@@ -178,15 +178,15 @@
      | eve.on("mouse", scream);
      | eve.on("mouse", catchIt)(1);
      * This will ensure that `catchIt()` function will be called before `eatIt()`.
-	 *
+     *
      * If you want to put your handler before non-indexed handlers, specify a negative value.
      * Note: I assume most of the time you don’t need to worry about z-index, but it’s nice to have this feature “just in case”.
     \*/
     eve.on = function (name, f) {
-		name = String(name);
-		if (typeof f != "function") {
-			return function () {};
-		}
+        name = String(name);
+        if (typeof f != "function") {
+            return function () {};
+        }
         var names = name.split(separator),
             e = events;
         for (var i = 0, ii = names.length; i < ii; i++) {
@@ -209,23 +209,23 @@
      [ method ]
      **
      * Returns function that will fire given event with optional arguments.
-	 * Arguments that will be passed to the result function will be also
-	 * concated to the list of final arguments.
- 	 | el.onclick = eve.f("click", 1, 2);
- 	 | eve.on("click", function (a, b, c) {
- 	 |     console.log(a, b, c); // 1, 2, [event object]
- 	 | });
+     * Arguments that will be passed to the result function will be also
+     * concated to the list of final arguments.
+     | el.onclick = eve.f("click", 1, 2);
+     | eve.on("click", function (a, b, c) {
+     |     console.log(a, b, c); // 1, 2, [event object]
+     | });
      > Arguments
-	 - event (string) event name
-	 - varargs (…) and any other arguments
-	 = (function) possible event handler function
+     - event (string) event name
+     - varargs (…) and any other arguments
+     = (function) possible event handler function
     \*/
-	eve.f = function (event) {
-		var attrs = [].slice.call(arguments, 1);
-		return function () {
-			eve.apply(null, [event, null].concat(attrs).concat([].slice.call(arguments, 0)));
-		};
-	};
+    eve.f = function (event) {
+        var attrs = [].slice.call(arguments, 1);
+        return function () {
+            eve.apply(null, [event, null].concat(attrs).concat([].slice.call(arguments, 0)));
+        };
+    };
     /*\
      * eve.stop
      [ method ]
@@ -272,7 +272,7 @@
      [ method ]
      **
      * Removes given function from the list of event listeners assigned to given name.
-	 * If no arguments specified all the events will be cleared.
+     * If no arguments specified all the events will be cleared.
      **
      > Arguments
      **
@@ -286,10 +286,10 @@
      * See @eve.off
     \*/
     eve.off = eve.unbind = function (name, f) {
-		if (!name) {
-		    eve._events = events = {n: {}};
-			return;
-		}
+        if (!name) {
+            eve._events = events = {n: {}};
+            return;
+        }
         var names = name.split(separator),
             e,
             key,
@@ -466,6 +466,7 @@
         }
     }
     R.version = "2.1.2";
+    R.posStyle = "absolute";
     R.eve = eve;
     var loaded,
         separator = /[, ]+/,
@@ -1226,7 +1227,7 @@
 
     var preload = R._preload = function (src, f) {
         var img = g.doc.createElement("img");
-        img.style.cssText = "position:fixed;left:-9999em;top:-9999em";
+        img.style.cssText = "position:" + R.posStyle + ";left:-9999em;top:-9999em";
         img.onload = function () {
             f.call(this);
             this.onload = null;
@@ -3084,10 +3085,14 @@
         return this.originalEvent.stopPropagation();
     },
     getEventPosition = function (e) {
-        /*var scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop,
-            scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;*/
-        var scrollY = 0,
+        var scrollY, scrollX;
+        if(R.posStyle === "absolute"){
+            scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop;
+            scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;
+        }else{
+            scrollY = 0;
             scrollX = 0;
+        }
         return {
             x: e.clientX + scrollX,
             y: e.clientY + scrollY
@@ -3135,12 +3140,16 @@
             return function (obj, type, fn, element) {
                 var f = function (e) {
                     e = e || g.win.event;
-                    /*var scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop,
-                        scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft,*/
-                    var scrollY = 0,
-                    	scrollX = 0,
-                        x = e.clientX + scrollX,
-                        y = e.clientY + scrollY;
+                    var scrollY, scrollX;
+                    if(R.posStyle === "absolute"){
+                        scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop;
+                        scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;
+                    }else{
+                        scrollY = 0;
+                        scrollX = 0;   
+                    }
+                    var x = e.clientX + scrollX,
+                    y = e.clientY + scrollY;
                     e.preventDefault = e.preventDefault || preventDefault;
                     e.stopPropagation = e.stopPropagation || stopPropagation;
                     return fn.call(element, e, x, y);
@@ -3158,13 +3167,16 @@
     dragMove = function (e) {
         var x = e.clientX,
             y = e.clientY,
-            /* scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop,
-            scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft,*/
-            scrollY = 0,
-            scrollX = 0,
             dragi,
             j = drag.length;
-            console.log(y, scrollY);
+            var scrollY, scrollX;
+            if(R.posStyle === "absolute"){
+                scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop;
+                scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;
+            }else{
+                scrollY = 0;
+                scrollX = 0;   
+            }
         while (j--) {
             dragi = drag[j];
             if (supportsTouch && e.touches) {
@@ -3591,11 +3603,15 @@
         function start(e) {
             (e.originalEvent || e).preventDefault();
             var x = e.clientX,
-                y = e.clientY,
-                /*scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop,
-                scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;*/
-                scrollY = 0,
+                y = e.clientY;
+            var scrollY, scrollX;
+            if(R.posStyle === "absolute"){
+                scrollY = g.doc.documentElement.scrollTop || g.doc.body.scrollTop;
+                scrollX = g.doc.documentElement.scrollLeft || g.doc.body.scrollLeft;
+            }else{
+                scrollY = 0;
                 scrollX = 0;
+            }
             this._drag.id = e.identifier;
             if (supportsTouch && e.touches) {
                 var i = e.touches.length, touch;
@@ -7003,7 +7019,7 @@
             xmlns: "http://www.w3.org/2000/svg"
         });
         if (container == 1) {
-            cnvs.style.cssText = css + "position:fixed;left:" + x + "px;top:" + y + "px";
+            cnvs.style.cssText = css + "position:" + R.posStyle + ";left:" + x + "px;top:" + y + "px";
             R._g.doc.body.appendChild(cnvs);
             isFloating = 1;
         } else {
@@ -7162,7 +7178,7 @@
         bites = /([clmz]),?([^clmz]*)/gi,
         blurregexp = / progid:\S+Blur\([^\)]+\)/g,
         val = /-?[^,\s-]+/g,
-        cssDot = "position:fixed;left:0;top:0;width:1px;height:1px",
+        cssDot = "position:" + R.posStyle + ";left:0;top:0;width:1px;height:1px",
         zoom = 21600,
         pathTypes = {path: 1, rect: 1, image: 1},
         ovalTypes = {circle: 1, ellipse: 1},
@@ -7330,7 +7346,7 @@
                     dstyle = div.style;
                 dstyle.clip = R.format("rect({1}px {2}px {3}px {0}px)", rect);
                 if (!node.clipRect) {
-                    dstyle.position = "fixed";
+                    dstyle.position = R.posStyle;
                     dstyle.top = 0;
                     dstyle.left = 0;
                     dstyle.width = o.paper.width + "px";
@@ -8062,14 +8078,14 @@
         res.coordsize = zoom * 1e3 + S + zoom * 1e3;
         res.coordorigin = "0 0";
         res.span = R._g.doc.createElement("span");
-        res.span.style.cssText = "position:fixed;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;";
+        res.span.style.cssText = "position:" + R.posStyle + ";left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;";
         c.appendChild(res.span);
         cs.cssText = R.format("top:0;left:0;width:{0};height:{1};display:inline-block;position:relative;clip:rect(0 {0} {1} 0);overflow:hidden", width, height);
         if (container == 1) {
             R._g.doc.body.appendChild(c);
             cs.left = x + "px";
             cs.top = y + "px";
-            cs.position = "fixed";
+            cs.position = R.posStyle;
         } else {
             if (container.firstChild) {
                 container.insertBefore(c, container.firstChild);
@@ -8084,7 +8100,7 @@
         R.eve("raphael.clear", this);
         this.canvas.innerHTML = E;
         this.span = R._g.doc.createElement("span");
-        this.span.style.cssText = "position:fixd;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
+        this.span.style.cssText = "position:" + R.posStyle + ";left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;";
         this.canvas.appendChild(this.span);
         this.bottom = this.top = null;
     };
