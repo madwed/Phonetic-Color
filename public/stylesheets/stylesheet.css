@@ -20,34 +20,38 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-    height: 100%;
 }
 
 body{
 	margin: 0em;
 }
-
-#mapper{
-	float: right;
-	margin: 0em 3.5em 0em 0em;
-	width: 57vw;
+canvas{
+	display: inline-block;
 }
-
+.row{
+	display: block;
+}
+.column{
+	padding: 3vh 2.5vw 1vh 2.5vw;
+}
+.container{
+	display: inline-block;
+	width: 100%;
+}
 #submit{
 	display: block;
 }
 
 #text_field{
-	width: 101%;
-	height: 16em;
-	display: inline-block;
+	width: 99.5%;
+	height: 25vh;
 	border-radius: .5em 1.6em;
 	resize: none;
 }
 
 #textCanvas{
-	width: 100%;
-	height: 25em;
+	width: 98%;
+	height: 60vh;
 	border-top: 4px solid black;
 	border-right: 8px solid black;
 	border-bottom: 0px solid black;
@@ -56,9 +60,9 @@ body{
 }
 
 h1{
-	margin: 0em 0em 0em;
-	display: inline-block;
-	font-size: 2.8em;
+	margin: 0px 0px 0px;
+	display: block;
+	font-size: 6.5vh;
 	font-family: lovelo;
 }
 
@@ -67,15 +71,10 @@ h1{
 }
 
 #cuber{
-	float: left;
-	margin: 1em;
-	width: 400px;
-	height: 100vh;
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none; 
-	
 }
 
 button{
@@ -93,40 +92,31 @@ button{
 
 #buttons{
 	position: relative;
-	left: 10em;
+	right: 20%;
+	text-align: right;
 }
 
 
 
 #keyCanvas{
-	position: relative;
-	height: 280px;
-	width: 370px;
-	right: 0em;
+	width: 85%;
 	border-top: 1px solid black;
 	border-right: 15px solid black;
 	border-bottom: 0px solid black;
 	border-left: 2px solid black;
-	border-radius: 10px 50px 80px 50px;
-	
+	border-radius: 10px 50px 80px 50px;	
 }
 
 #color{
-	position: relative;
-	bottom: 222px;
-	left: 372px;
+	position: absolute;
 	background-color: #655555;
 	width: 13px;
-	height: 120px;
 	border: 1px solid #cccccc;
 	border-radius: 10px;
 }
 
 #phoCubes{
-	position: relative;	
-	height: 300px;
-	width: 400px;
-	top: -7em;
+	width: 90%;
 	border-top: 5px solid black;
 	border-right: 1px solid black;
 	border-bottom: 3px solid black;
@@ -135,7 +125,7 @@ button{
 	
 }
 
-#sidebar{
+/*#sidebar{
 	position: fixed;
 	right: -7em;
 	top: 11em;
@@ -146,42 +136,42 @@ button{
 
 #sidebar button{
 	font-size: 1.5em;
-}
-
-
-
-/*#cubeCanvLeft{
-	position: relative;
-	top: -300px;
-	height: 300px;
-	border-left: solid black 7px;
-	border-bottom-left-radius: 100px;
-	margin: 0px;
-}
-
-#cubeCanvBottom{
-	position: relative;
-	top: -602px;
-	height: 300px;
-	width: 280px;
-	border-bottom: solid black 2px;
-	border-bottom-left-radius: 100px;
-	margin: 0px;
-}
-
-#cubeMark{
-	position: relative;
-	height: 200px;
-	width: 200px;
-	right: -281px;
-	top: -606px;
-	border-top: solid black 2px;
-	border-right: solid black 1px;
-	border-top-right-radius: 200px;
-	-ms-transform: rotate(-1deg); 
-    -webkit-transform: rotate(-1deg);
-    transform: rotate(-1deg);
-    margin: 0px;
 }*/
+
+@media (max-width: 900px) {
+	.col-sm-12{
+		display: block;
+		text-align: center;
+	}
+}
+@media (min-width: 900px) and (max-width: 1200px) {
+	.col-md-12{
+		display: block;
+		text-align: center;
+	}
+	.col-md-6{
+		display: inline-block;
+		width: 46vw;
+		text-align: center;
+	}
+		canvas#keyCanvas{
+			width: 42.5%;
+	} 
+		canvas#phoCubes{
+			width: 45%;
+	}
+}
+@media (min-width: 1200px) {
+	.col-lg-8{	
+		float: right;
+		width: 61vw;
+	}
+	.col-lg-4{
+		position: fixed;
+		display: inline-block;
+		width: 33vw;
+	}
+}
+
 
 

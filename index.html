@@ -2,33 +2,38 @@
 <html>
 <head>
 	<title>Color by Phoneme</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-	<div id="cuber">
-		<h1>Phonetic</h1><h1 id="grayTitle">Color</h1>
-		<div id="buttons">
-			<button id="black" type="button">Black</button>
-			<button id="white" type="button">White</button>
-			<button id="hsl" type="buuton">HSL</button>
-			<button id="rgb" type="button">RGB</button>
-		</div>
-		<canvas id="keyCanvas" width="370px" height="280px"></canvas>
-		<div id="color"></div>
-		<canvas id="phoCubes" width="400px" height="300px"></canvas>
-	</div>
-	<div id="mapper">
-		<h1></h1>
+	<div class="row">
+		<div class="col-lg-4 col-md-12 col-sm-12 column" id="cuber">
+			<h1>Phonetic<span id="grayTitle">Color</span></h1>
+			<div id="buttons">
+				<button id="black" type="button">Black</button>
+				<button id="white" type="button">White</button>
+				<button id="hsl" type="buuton">HSL</button>
+				<button id="rgb" type="button">RGB</button>
+			</div>
+			<div id="color"></div>
+			<canvas id="keyCanvas"></canvas>
+			<canvas id="phoCubes"></canvas>
+			
+		</div><!--
+		--><div class="col-lg-8 col-md-12 col-sm-12 column" id="mapper">
+			<h1></h1>
 			<button type="submit" id="submit">Submit</button>
 			<textarea id="text_field"></textarea>
-		<canvas id="textCanvas"></canvas>
+			<canvas id="textCanvas"></canvas>
+		</div>
+		<!-- <div id="sidebar">
+			<button id="frequency" type="button">Frequency</button>
+			<button id="wordiness" type="button">Wordiness</button>
+		</div> -->
+		<!-- <div id="frequencyChart"></div>
+		<div id="wordinessChart"></div> -->
 	</div>
-	<div id="sidebar">
-		<button id="frequency" type="button">Frequency</button>
-		<button id="wordiness" type="button">Wordiness</button>
-	</div>
-	<div id="frequencyChart"></div>
-	<div id="wordinessChart"></div>
+	
 
 	<script type="text/javascript" src="/js/raphael.js"></script>
 	<script type="text/javascript" src="/js/colorwheel.js"></script>
