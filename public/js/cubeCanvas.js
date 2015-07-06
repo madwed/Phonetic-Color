@@ -1,11 +1,13 @@
 (function(){
 
+//Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
+var canvas = document.getElementById("phoCubes"),
+	cubeCol = document.getElementById("sizer");
 
-var scene = new THREE.Scene();
-var canvas = document.getElementById("phoCubes");
 Operator.prototype.drawCubes = function(){
-	canvas.height = canvas.clientWidth * 3 / 4;
-	canvas.width = canvas.clientWidth;
+	var scene = new THREE.Scene();
+	canvas.width = cubeCol.clientWidth * 0.9;
+	canvas.height = canvas.width * 3 / 4;
 	canvas.style.height = canvas.height + "px";
 	canvas.style.width = canvas.width + "px";
 

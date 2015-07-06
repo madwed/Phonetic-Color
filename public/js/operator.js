@@ -73,23 +73,21 @@ function Operator () {
 		var y = Math.round((event.clientY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
 		this.updateKeyCanvas(x, y);
 	};
-	//resizing not current working...
-	// var resizeHandler = function (event) {
-	// 	console.log("fired!");
-	// 	this.initKeys();
-	// 	this.drawKeys(true);
-	// 	this.drawCubes();
-	// 	this.drawContent(this.lastString);
-	// };
+	var resizeHandler = function (event) {
+		this.drawContent(this.lastString);
+		this.drawCubes();
+		this.cp = undefined;
+		this.initKeys();
+		this.drawKeys(true);	
+	};
 
 	this.initKeys();
 	this.drawKeys(true);
 	this.drawCubes();
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
-	// not working, need to resize based on col width
-	// resizeHandler = resizeHandler.bind(this);
-	// window.onresize = resizeHandler;
+	resizeHandler = resizeHandler.bind(this);
+	window.onresize = resizeHandler;
 	var rgbButton = document.getElementById("rgb");
 	rgbButton.addEventListener("click", this.reset.bind(this, this.defaultCode));
 	var hslButton = document.getElementById("hsl");

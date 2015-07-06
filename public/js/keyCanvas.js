@@ -4,33 +4,34 @@
 
 var keyCanvas = document.getElementById("keyCanvas"),
 		keyCtx = keyCanvas.getContext("2d"),
+		cubeCol = document.getElementById("sizer"),
 		colorBox = document.getElementById("color");
 		var reg = /^#(.)\1(.)\2(.)\3$/;
 	
     Operator.prototype.initKeys = function(){
 		var swatches = [];
-		
-
-		keyCanvas.height = keyCanvas.clientWidth * 3 / 4;
-		keyCanvas.width = keyCanvas.clientWidth;
+		keyCanvas.width = cubeCol.clientWidth * 0.85;
+		keyCanvas.height = keyCanvas.width * 3 / 4;
 		keyCanvas.style.height = keyCanvas.height + "px";
 		keyCanvas.style.width = keyCanvas.width + "px";
 		colorBox.height = keyCanvas.height / 2;
 		colorBox.style.height = colorBox.height + "px";
+
 		var keyRect = keyCanvas.getBoundingClientRect();
 		colorBox.style.left = keyRect.right - 15 + "px";
-		colorBox.style.top = keyCanvas.scrollTop + keyRect.bottom - colorBox.height * 8 / 5 + "px";
-
+		colorBox.style.top = keyRect.bottom - colorBox.height * 8 / 5 + "px";
+		console.log(keyRect.right, keyRect.bottom);
 		//color picker creation
+		//need to figure out how to remove existing color picker before redraw (or just resize current picker)
 		var scale = colorBox.height / 2;
-		var cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, "#655555");
+		this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, "#655555");
     	colorBox.value = "#655555";
-    	cp.onchange = function (clr) {
+    	this.cp.onchange = function (clr) {
 			colorBox.value = clr.replace(reg, "#$1$2$3");
 			colorBox.style.background = clr;
 			colorBox.style.color = Raphael.rgb2hsb(clr).b < .5 ? "#fff" : "#000";
 		};
-
+		
 		var swatchWidth = keyCanvas.width * 0.0541, 
 			swatchHeight = keyCanvas.height * 0.0714;
 		Operator.prototype.drawKeys = function(reset){

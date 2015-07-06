@@ -38,6 +38,11 @@ canvas{
 	display: inline-block;
 	width: 100%;
 }
+.hidden{
+	display: none;
+	visibility: none;
+}
+
 #submit{
 	display: block;
 }
@@ -155,7 +160,7 @@ button{
 	}
 	.col-md-6{
 		display: inline-block;
-		width: 46vw;
+		width: 44vw;
 		text-align: center;
 		margin: auto;
 	}
@@ -169,7 +174,7 @@ button{
 @media (min-width: 1200px) {
 	.col-lg-8{	
 		float: right;
-		width: 61vw;
+		width: 60vw;
 	}
 	.col-lg-4{
 		position: fixed;
