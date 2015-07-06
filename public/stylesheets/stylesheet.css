@@ -142,17 +142,22 @@ button{
 	.col-sm-12{
 		display: block;
 		text-align: center;
+		width: 80vw;
+		margin: auto;
 	}
 }
 @media (min-width: 900px) and (max-width: 1200px) {
 	.col-md-12{
 		display: block;
 		text-align: center;
+		width: 80vw;
+		margin: auto;
 	}
 	.col-md-6{
 		display: inline-block;
 		width: 46vw;
 		text-align: center;
+		margin: auto;
 	}
 		canvas#keyCanvas{
 			width: 42.5%;

@@ -4,6 +4,7 @@
 
 function Operator () {
 	//Phoneme, color, 3D reference
+	window.scrollTo(0, 0);
 	this.resetFuncs = [];
 	this.defaultCode = {
 		a: {phoneme: "AA", color: "#000000"}, b: {phoneme: "AE", color: "#004c19"}, c: {phoneme: "AH", color: "#000033"},

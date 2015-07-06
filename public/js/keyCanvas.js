@@ -19,7 +19,7 @@ var keyCanvas = document.getElementById("keyCanvas"),
 		colorBox.style.height = colorBox.height + "px";
 		var keyRect = keyCanvas.getBoundingClientRect();
 		colorBox.style.left = keyRect.right - 15 + "px";
-		colorBox.style.top = keyRect.bottom - colorBox.height * 8 / 5 + "px";
+		colorBox.style.top = keyCanvas.scrollTop + keyRect.bottom - colorBox.height * 8 / 5 + "px";
 
 		//color picker creation
 		var scale = colorBox.height / 2;
