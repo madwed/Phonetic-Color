@@ -7,6 +7,8 @@ var textCanvas = document.getElementById("textCanvas"),
 	contentCol = document.getElementById("mapper");
 
 Operator.prototype.drawContent = function (codeString) {
+	textCanvas.width = contentCol.clientWidth * 0.92;
+	textCanvas.style.width = textCanvas.width + "px";
 	var codedWords = codeString.split("J"), codedWordsLength = codedWords.length,
 		phoWidth = 4, phoHeight = 20,
 		margin = 40, rightMargin = textCanvas.clientWidth - margin - phoWidth,
@@ -25,9 +27,8 @@ Operator.prototype.drawContent = function (codeString) {
 	}, [phoHeight, 0]);
 	canvasHeight = canvasHeight[0] + row + row;
 	textCanvas.height = canvasHeight;
-	textCanvas.width = contentCol.clientWidth * 0.92;
 	textCanvas.style.height = canvasHeight + "px";
-	textCanvas.style.width = textCanvas.width + "px";
+	
 
 	//Decode the words into arrays of colors
 	codedWords = codedWords.map(function(codeWord){

@@ -72,18 +72,16 @@ function Operator () {
 		var x = Math.round((event.clientX - rect.left) / (rect.right - rect.left) * keyCanvas.width);
 		var y = Math.round((event.clientY - rect.top) / (rect.bottom - rect.top) * keyCanvas.height);
 		this.updateKeyCanvas(x, y);
+		this.renderCubes();
 	};
 	var resizeHandler = function (event) {
 		this.drawContent(this.lastString);
-		this.drawCubes();
-		this.cp = undefined;
+		this.resizeCubes();
+		this.cp.remove();
 		this.initKeys();
 		this.drawKeys(true);	
 	};
 
-	this.initKeys();
-	this.drawKeys(true);
-	this.drawCubes();
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
 	resizeHandler = resizeHandler.bind(this);
@@ -99,6 +97,8 @@ function Operator () {
 	var whiten = function () { this.color("#ffffff"); };
 	whiteButton.addEventListener("click", whiten.bind(this));
 
+	this.initKeys();
+	this.drawKeys(true);
 }
 
 Operator.prototype.reset = function (code) {
