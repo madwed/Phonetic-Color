@@ -135,8 +135,9 @@ button{
 	border-radius: 10px;
 }
 
-#phoCubes{
+#cubeCanvas{
 	width: 90%;
+
 	border-top: 5px solid black;
 	border-right: 1px solid black;
 	border-bottom: 3px solid black;
@@ -144,11 +145,9 @@ button{
 	-webkit-border-radius: 25px 100px 25px 100px;
 	-moz-border-radius: 25px 100px 25px 100px;
 	border-radius: 25px 100px 25px 100px;
-	/*prevent canvas leaking*/
+
 	overflow: hidden;
-	-webkit-background-clip: padding-box; 
-	-moz-background-clip:    padding; 
-	background-clip:         padding-box;
+
 }
 
 
@@ -189,7 +188,7 @@ button{
 		canvas#keyCanvas{
 			width: 42.5%;
 	} 
-		canvas#phoCubes{
+		canvas#cubeCanvas{
 			width: 45%;
 	}
 }

@@ -2,7 +2,7 @@
 
 //Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
 
-var canvas = document.getElementById("phoCubes"),
+var canvas = document.getElementById("cubeCanvas"),
 	cubeCol = document.getElementById("sizer"),
 	mousePresent = false;
 
