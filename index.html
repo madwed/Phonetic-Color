@@ -2,38 +2,54 @@
 <html>
 <head>
 	<title>Color by Phoneme</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
 </head>
 <body>
-	
-	<div id="mapper">
-		<h1></h1>
+	<div class="row">
+		<div class="col-lg-4 col-md-12 col-sm-12 column" id="cuber">
+			<div class="hidden col-lg-4 col-md-6 col-sm-12" id="sizer"></div>
+			<h1>Phonetic<span id="grayTitle">Color</span></h1>
+			<div class="container">
+				<div id="buttons">
+					<button id="black" type="button">Black</button>
+					<button id="white" type="button">White</button>
+					<button id="hsl" type="buuton">HSL</button>
+					<button id="rgb" type="button">RGB</button>
+				</div>
+				<div id="color"></div>
+				<canvas id="keyCanvas"></canvas>
+			</div>
+			<canvas id="cubeCanvas"></canvas>			
+		</div><!--
+		--><div class="col-lg-8 col-md-12 col-sm-12 column" id="mapper">
+			<h1></h1>
 			<button type="submit" id="submit">Submit</button>
 			<textarea id="text_field"></textarea>
-		<canvas id="textCanvas"></canvas>
-	</div>
-	<div id="cuber">
-		<h1>Phonetic Color</h1>
-		<div id="buttons">
-			<button id="black" type="button">Black</button>
-			<button id="white" type="button">White</button>
-			<button id="default" type="button">Default</button>
+			<canvas id="textCanvas"></canvas>
 		</div>
-		<canvas id="keyCanvas" width="370px" height="280px"></canvas>
-		<div id="color"></div>
-		<input class="colorWheeler"/>
-		<canvas id="phoCubes" width="400px" height="300px"></canvas>
-		
+
+		<!-- <div id="sidebar">
+			<button id="frequency" type="button">Frequency</button>
+			<button id="wordiness" type="button">Wordiness</button>
+		</div> -->
+		<!-- <div id="frequencyChart"></div>
+		<div id="wordinessChart"></div> -->
 	</div>
-	<script type="text/javascript" src="/js/jsColor.js"></script>
+	
+
+	<script type="text/javascript" src="/js/raphael.js"></script>
+	<script type="text/javascript" src="/js/colorwheel.js"></script>
 	<script type="text/javascript" src="/cuber/three.min.js"></script>
 	<script type="text/javascript" src="/cuber/OrbitControls.js"></script>
 	<script type="text/javascript" src="/cuber/helvetiker_regular.typeface.js"></script>
-	<script src="/js/operator.js"></script>
-	<script src="/js/contentCanvas.js"></script>
-	<script src="/js/keyCanvas.js"></script>
-	<script src="/js/cubeCanvas.js"></script>
-	<script src="/js/runner.js"></script>
+	<script type="text/javascript" src="/js/operator.js"></script>
+	<script type="text/javascript" src="/js/contentCanvas.js"></script>
+	<script type="text/javascript" src="/js/keyCanvas.js"></script>
+	<script type="text/javascript" src="/js/cubeCanvas.js"></script>
+	<script type="text/javascript" src="/js/frequency.js"></script>
+	<script type="text/javascript" src="/js/wordiness.js"></script>
+	<script type="text/javascript" src="/js/runner.js"></script>
 	
 </body>
 </html>

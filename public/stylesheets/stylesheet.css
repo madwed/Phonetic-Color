@@ -1,22 +1,44 @@
-/*Disable the blue box in chrome*/
+	/*Disable the blue box in chrome*/
 *:focus{
 	outline: 0;
+}
+
+@font-face{
+	font-family: lovelo;
+	src: url("/fonts/Lovelo Black.otf");
+}
+@font-face{
+	font-family: loveloLight;
+	src: url("/fonts/Lovelo Line Light.otf");
+}
+@font-face{
+	font-family: roboto;
+	src: url("/fonts/Roboto-LightItalic.ttf");
 }
 
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-    /*border-bottom: 10px solid black;*/
 }
 
 body{
-	margin: 0em	0em 0em 1em;
+	margin: 0em;
 }
-
-#mapper{
-	position: absolute;
-	width: 57vw;
-	right: 5%;
+canvas{
+	display: inline-block;
+}
+.row{
+	display: block;
+}
+.column{
+	padding: 3vh 2.5vw 1vh 2.5vw;
+}
+.container{
+	display: inline-block;
+}
+.hidden{
+	display: none;
+	visibility: none;
 }
 
 #submit{
@@ -24,135 +46,171 @@ body{
 }
 
 #text_field{
-	width: 101%;
-	height: 190px;
-	display: inline-block;
-	border-radius: 5px 20px;
+	width: 99.5%;
+	height: 25vh;
+	-webkit-border-radius: .5em 1.6em;
+	-moz-border-radius: .5em 1.6em;
+	border-radius: .5em 1.6em;
 	resize: none;
+	margin: 0px;
 }
 
 #textCanvas{
-	width: 100%;
-	height: 350px;
+	width: 98%;
+	height: 60vh;
 	border-top: 4px solid black;
 	border-right: 8px solid black;
 	border-bottom: 0px solid black;
 	border-left: 8px solid black;
+	-webkit-border-radius: 25px 40px 60px 50px;
+	-moz-border-radius: 25px 40px 60px 50px;
 	border-radius: 25px 40px 60px 50px;
 }
 
 h1{
-	margin: .25em;
+	margin: 0px 0px 0px;
+	display: block;
+	font-size: 6.5vh;
+	font-family: lovelo;
+}
+
+#grayTitle{
+	font-family: loveloLight;
 }
 
 #cuber{
-	position: fixed;
-	left: 1.5em;
-	width: 400px;
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none; 
-	
 }
 
 button{
-	color: white;
+	color: #fffffe;
+	font-family: roboto;
+	font-size: .75em;
 	border: 1px solid black;
 	border-bottom: 0px solid black;
+
+	-webkit-border-radius: 8px 10px 2px 8px;
+	-moz-border-radius: 8px 10px 2px 8px;
 	border-radius: 8px 10px 2px 8px;
+
 	background-color: black;
+
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	-o-user-select: none; 
+
+	margin: 0px;
 }
 
 #buttons{
 	position: relative;
-	left: 11em;
+	right: 15%;
+	text-align: right;
 }
 
 
 
 #keyCanvas{
-	position: relative;
-	height: 280px;
-	width: 370px;
-	right: 1em;
+	width: 85%;
 	border-top: 1px solid black;
 	border-right: 15px solid black;
 	border-bottom: 0px solid black;
 	border-left: 2px solid black;
-	border-radius: 80px 50px;
-	
+	-webkit-border-radius: 10px 50px 80px 50px;
+	-moz-border-radius: 10px 50px 80px 50px;
+	border-radius: 10px 50px 80px 50px;	
 }
 
 #color{
-	position: relative;
-	bottom: 252px;
-	left: 356px;
+	position: absolute;
 	background-color: #655555;
 	width: 13px;
-	height: 150px;
-	border: 1px solid white;
+	border: 1px solid #cccccc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
-.colorWheeler{
-	position: relative;
-	top: -254px;
-	left: 334px;
-	width: 100px;
-	height: 100px;
-}
 
-#phoCubes{
-	position: relative;	
-	height: 300px;
-	width: 400px;
-	top: -16em;
+#cubeCanvas{
+	width: 90%;
+
 	border-top: 5px solid black;
 	border-right: 1px solid black;
 	border-bottom: 3px solid black;
 	border-left: 2px solid black;
-	border-radius: 25px 100px;
-	
+	-webkit-border-radius: 25px 100px 25px 100px;
+	-moz-border-radius: 25px 100px 25px 100px;
+	border-radius: 25px 100px 25px 100px;
+
+	overflow: hidden;
+
 }
 
 
-
-/*#cubeCanvLeft{
-	position: relative;
-	top: -300px;
-	height: 300px;
-	border-left: solid black 7px;
-	border-bottom-left-radius: 100px;
-	margin: 0px;
+/*#sidebar{
+	position: fixed;
+	right: -7em;
+	top: 11em;
+	-ms-transform: rotate(-90deg); 
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
-#cubeCanvBottom{
-	position: relative;
-	top: -602px;
-	height: 300px;
-	width: 280px;
-	border-bottom: solid black 2px;
-	border-bottom-left-radius: 100px;
-	margin: 0px;
-}
-
-#cubeMark{
-	position: relative;
-	height: 200px;
-	width: 200px;
-	right: -281px;
-	top: -606px;
-	border-top: solid black 2px;
-	border-right: solid black 1px;
-	border-top-right-radius: 200px;
-	-ms-transform: rotate(-1deg); 
-    -webkit-transform: rotate(-1deg);
-    transform: rotate(-1deg);
-    margin: 0px;
+#sidebar button{
+	font-size: 1.5em;
 }*/
+
+@media (max-width: 900px) {
+	.col-sm-12{
+		display: block;
+		text-align: center;
+		width: 80vw;
+		margin: auto;
+	}
+}
+@media (min-width: 900px) and (max-width: 1200px) {
+	.col-md-12{
+		display: block;
+		text-align: center;
+		width: 80vw;
+		margin: auto;
+	}
+	.col-md-6{
+		display: inline-block;
+		width: 44vw;
+		text-align: center;
+		margin: auto;
+	}
+		canvas#keyCanvas{
+			width: 42.5%;
+	} 
+		canvas#cubeCanvas{
+			width: 45%;
+	}
+}
+@media (min-width: 1200px) {
+	.col-lg-8{	
+		float: right;
+		width: 60vw;
+	}
+	.col-lg-4{
+		position: fixed;
+		display: inline-block;
+		width: 33vw;
+	}
+}
+
+/* Rules for Firefox */
+@-moz-document url-prefix() {
+    #buttons{
+    	height: 17px;
+    }
+}
+
 
 

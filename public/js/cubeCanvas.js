@@ -1,7 +1,18 @@
 (function(){
 
+//Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
+
+var canvas = document.getElementById("cubeCanvas"),
+	cubeCol = document.getElementById("sizer"),
+	mousePresent = false;
+
+
 var scene = new THREE.Scene();
-var canvas = document.getElementById("phoCubes");
+canvas.width = cubeCol.clientWidth * 0.9;
+canvas.height = canvas.width * 3 / 4;
+canvas.style.height = canvas.height + "px";
+canvas.style.width = canvas.width + "px";
+
 var camera = new THREE.PerspectiveCamera( 20, canvas.width/canvas.height, 0.1, 1000 );
 
 var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, precision: "highp"});
@@ -34,6 +45,7 @@ var color = new THREE.Color();
 var labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
 var labelOffset = 4;
 var scale = 150;
+var gray = parseInt("cccccc", 16);
 
 var vowelScaler = function (phoneme) {
 	var roundness = phoneme[0] / 5,
@@ -61,12 +73,16 @@ function addToModel (phonemes, scaler) {
 		//Create the cube and label
 		var material = new THREE.MeshBasicMaterial( { color: color } );
 		var cube = new THREE.Mesh( cubeGeometry, material );
+		var cubeFrame = new THREE.BoxHelper(cube);
+		cubeFrame.material.color.setHex(gray);
 		var label = new THREE.Mesh(letter, labelMaterial);
 		scene.add( cube );
+		scene.add( cubeFrame );
 		labels.add(label);
 
 		//Set the position of each cube and label
 		cube.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
+		cubeFrame.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
 		label.position.set(phoneme[0] * scale + labelOffset, phoneme[1] * scale + labelOffset, phoneme[2] * scale + labelOffset);
 		//Build and position the outline of each label
 		var outlineMaterial1 = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide } );
@@ -93,13 +109,15 @@ controls.damping = 0.2;
 controls.addEventListener( 'change', render );
 
 var render = function () {
-	requestAnimationFrame( render );
 	camera.lookAt(new THREE.Vector3(60, 60, 80));
 	var labelRotate = labels.children;	
 	for(var i = 0; i < labelRotate.length; i++){
 		labelRotate[i].lookAt(camera.position);
 	}
 	renderer.render(scene, camera);
+	if(mousePresent){ /////////ADDD THIS ADD THIS
+		requestAnimationFrame( render );
+	}
 };
 
 
@@ -109,12 +127,47 @@ var updateCube = function(key, color){
 };
 
 var reset = function(){
-
+	var customCode = this.customCode;
+	Object.keys(customCode).forEach(function(code){
+		var phoneme = customCode[code];
+		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
+		cubes[phoneme.phoneme].label.material.color = new THREE.Color(phoneme.color);
+	});
+	render();
 };
 
 Operator.prototype.updateCube = updateCube;
-
+Operator.prototype.resetCubes = reset;
 
 render();
+
+var startRender = function () {
+	mousePresent = true;
+	render();
+};
+var stopRender = function () {
+	mousePresent = false;
+};
+
+canvas.addEventListener("mousedown", startRender);
+canvas.addEventListener("mouseup", stopRender);
+canvas.addEventListener("touchstart", startRender);
+canvas.addEventListener("touchend", stopRender);
+
+Operator.prototype.resizeCubes = function(){
+	canvas.width = cubeCol.clientWidth * 0.9;
+	canvas.height = canvas.width * 3 / 4;
+	canvas.style.height = canvas.height + "px";
+	canvas.style.width = canvas.width + "px";
+	renderer.setSize( canvas.width, canvas.height );
+	render();
+};
+
+Operator.prototype.renderCubes = function(){
+	render();
+};
+
+
+
 
 })();
