@@ -133,21 +133,26 @@ var reset = function(){
 		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
 		cubes[phoneme.phoneme].label.material.color = new THREE.Color(phoneme.color);
 	});
+	render();
 };
 
 Operator.prototype.updateCube = updateCube;
 Operator.prototype.resetCubes = reset;
 
 render();
-canvas.addEventListener("mousedown", function () {
-	console.log("down");
+
+var startRender = function () {
 	mousePresent = true;
 	render();
-});
-canvas.addEventListener("mouseup", function () {
-	console.log("up");
+};
+var stopRender = function () {
 	mousePresent = false;
-});
+};
+
+canvas.addEventListener("mousedown", startRender);
+canvas.addEventListener("mouseup", stopRender);
+canvas.addEventListener("touchstart", startRender);
+canvas.addEventListener("touchend", stopRender);
 
 Operator.prototype.resizeCubes = function(){
 	canvas.width = cubeCol.clientWidth * 0.9;

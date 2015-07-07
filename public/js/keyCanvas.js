@@ -7,6 +7,7 @@ var keyCanvas = document.getElementById("keyCanvas"),
 		cubeCol = document.getElementById("sizer"),
 		colorBox = document.getElementById("color");
 		var reg = /^#(.)\1(.)\2(.)\3$/;
+
 	
     Operator.prototype.initKeys = function(){
 		var swatches = [];
@@ -57,7 +58,8 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				});
 			}
 			keyCtx.font = swatchHeight + "px sans-serif";
-			keyCtx.lineWidth = 0.3;
+			keyCtx.lineWidth = 1;
+			keyCtx.strokeStyle = "#cccccc";
 			keyCtx.clearRect(0, 0, keyCanvas.width, keyCanvas.height);
 			for(var i = 0; i < swatches.length; i++){
 				if(startX > marginRight){
@@ -67,7 +69,6 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				keyCtx.fillStyle = swatches[i].color;
 				keyCtx.fillText(swatches[i].phoneme, startX + swatchWidth + (swatchWidth / 4), startY + swatchHeight * 9 / 10);
 				keyCtx.fillRect(startX, startY, swatchWidth, swatchHeight);
-				keyCtx.fillStyle = "#cccccc";
 				keyCtx.strokeText(swatches[i].phoneme, startX + swatchWidth + (swatchWidth / 4), startY + swatchHeight * 9 / 10);
 				keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
 				swatches[i].position.x = startX + swatchWidth / 2;
@@ -92,7 +93,7 @@ var keyCanvas = document.getElementById("keyCanvas"),
 				keyCtx.fillStyle = colorBox.value;
 				keyCtx.fillText(updateSwatch.phoneme, startX + swatchWidth + (swatchWidth / 4), startY + swatchHeight * 9 / 10);
 				keyCtx.fillRect(startX, startY, swatchWidth, swatchHeight);
-				keyCtx.fillStyle = "#cccccc";
+				keyCtx.strokeStyle = "#cccccc";
 				keyCtx.strokeText(swatches[i].phoneme, startX + swatchWidth + (swatchWidth / 4), startY + swatchHeight * 9 / 10);
 				keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
 				code[updateSwatch.key].color = colorBox.value;
