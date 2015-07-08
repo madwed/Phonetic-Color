@@ -3,7 +3,8 @@
 
 
 function Operator () {
-	//Phoneme, color, 3D reference
+	//Scroll to the top of the page on refresh/ page-load.
+	//Ensures everything renders correctly.
 	window.scrollTo(0, 0);
 	this.resetFuncs = [];
 	this.defaultCode = {
@@ -34,10 +35,10 @@ function Operator () {
 		E: {phoneme: "V", color: "#3cb465"}, F: {phoneme: "W", color: "#479932"}, G: {phoneme: "Y", color: "#aee0a2"},
 		H: {phoneme: "Z", color: "#6bcdc3"}, I: {phoneme: "ZH", color: "#86d6ce"}
 
-	}
+	};
 		//Clone the defaultCode
-		this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
-		this.lastString = "";
+	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
+	this.lastString = "";
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
 	var self = this;
@@ -80,44 +81,44 @@ function Operator () {
 		this.initKeys();
 		this.drawKeys(true);	
 	};
-
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
 	resizeHandler = resizeHandler.bind(this);
 	window.onresize = resizeHandler;
-	var rgbButton = document.getElementById("rgb");
-	rgbButton.addEventListener("click", this.reset.bind(this, this.defaultCode));
-	var hslButton = document.getElementById("hsl");
-	hslButton.addEventListener("click", this.reset.bind(this, this.hslCode));
-	var blackButton = document.getElementById("black");
-	var blacken = function () { this.color("#000000"); };
-	blackButton.addEventListener("click", blacken.bind(this));
-	var whiteButton = document.getElementById("white");
-	var whiten = function () { this.color("#ffffff"); };
-	whiteButton.addEventListener("click", whiten.bind(this));
+
+	var rgbButton = document.getElementById("rgb"),
+		hslButton = document.getElementById("hsl"),
+		blackButton = document.getElementById("black"),
+		whiteButton = document.getElementById("white");
+
+	rgbButton.addEventListener("click", this.color.bind(this, this.defaultCode));
+	hslButton.addEventListener("click", this.color.bind(this, this.hslCode));
+	blackButton.addEventListener("click", this.color.bind(this, "#000000"));
+	whiteButton.addEventListener("click", this.color.bind(this, "#ffffff"));
 
 	this.initKeys();
 	this.drawKeys(true);
 }
 
-Operator.prototype.reset = function (code) {
-	this.customCode = JSON.parse(JSON.stringify(code));
-	if(this.lastString){
-		this.drawContent(this.lastString);
-	}
-	this.drawKeys(true);
-	this.resetCubes();
-};
-
-Operator.prototype.color = function (color) {
+//Takes a hex color string or a code object
+Operator.prototype.color = function (colorCode) {
 	var code, customCode = this.customCode;
-	for(code in customCode){
-		customCode[code].color = color;
+	//If the colorCode is a code object, set clone it to customCode
+	if(typeof colorCode === "object"){
+		customCode = JSON.parse(JSON.stringify(colorCode));
+	}else{
+		//Else loop over and assign each color to the color string
+		for(code in customCode){
+			customCode[code].color = colorCode;
+		}
 	}
+	//Reset the keys
 	this.drawKeys(true);
+	//Reset the Cubes
+	this.resetCubes();
+	//If there is a lastString reset the content
 	if(this.lastString){
 		this.drawContent(this.lastString);
 	}
-	this.resetCubes();
 }
 
