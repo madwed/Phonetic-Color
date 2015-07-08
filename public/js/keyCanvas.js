@@ -21,10 +21,12 @@ var keyCanvas = document.getElementById("keyCanvas"),
 		var keyRect = keyCanvas.getBoundingClientRect();
 		colorBox.style.left = keyRect.right - 15 + "px";
 		colorBox.style.top = keyRect.bottom - colorBox.height * 8 / 5 + "px";
-		console.log(keyRect.right, keyRect.bottom);
 		//color picker creation
 		//need to figure out how to remove existing color picker before redraw (or just resize current picker)
 		var scale = colorBox.height / 2;
+		if(this.cp){
+			this.cp.remove();
+		}
 		this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, "#655555");
     	colorBox.value = "#655555";
     	this.cp.onchange = function (clr) {

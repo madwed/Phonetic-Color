@@ -77,7 +77,6 @@ function Operator () {
 	var resizeHandler = function (event) {
 		this.drawContent(this.lastString);
 		this.resizeCubes();
-		this.cp.remove();
 		this.initKeys();
 		this.drawKeys(true);	
 	};
