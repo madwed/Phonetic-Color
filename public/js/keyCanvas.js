@@ -3,15 +3,14 @@
 "use strict";
 //Get the keyCanvas, keyCtx, column containing the canvas
 var keyCanvas = document.getElementById("keyCanvas"),
-		keyCtx = keyCanvas.getContext("2d"),
-		cubeCol = document.getElementById("sizer"),
-		colorBox = document.getElementById("color");
+	keyCtx = keyCanvas.getContext("2d"),
+	cubeCol = document.getElementById("sizer"),
+	colorBox = document.getElementById("color");
 //Set up the Raphael Regex
 var reg = /^#(.)\1(.)\2(.)\3$/;
 
 	
 Operator.prototype.initKeys = function(){
-	var swatches = [];
 	//Calculate the width and height of the keyCanvas
 	keyCanvas.width = cubeCol.clientWidth * 0.85;
 	keyCanvas.height = keyCanvas.width * 3 / 4;
@@ -29,15 +28,17 @@ Operator.prototype.initKeys = function(){
 	var scale = keyCanvas.height / 4;
 	//If the colorPicker exists this is a resize, remove the colorPicker
 	if(this.cp){ this.cp.remove(); }
-	//Build the colorPicker
+	//If the colorBox has a value, keep its value, otherwise this is the first init and set it
 	colorBox.value = colorBox.value ? colorBox.value : "#655555";
+	//Set up the colorPicker
 	this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, colorBox.value);
 	this.cp.onchange = function (clr) {
 		colorBox.value = clr.replace(reg, "#$1$2$3");
 		colorBox.style.background = clr;
 	};
-	
-	var swatchWidth = keyCanvas.width * 0.0541, 
+	//Set the swatch array and swatch dimensions
+	var swatches = [],
+		swatchWidth = keyCanvas.width * 0.0541, 
 		swatchHeight = keyCanvas.height * 0.0714;
 	Operator.prototype.drawKeys = function(reset){
 		var marginLeft = swatchWidth * 1.5,
