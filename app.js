@@ -2,13 +2,12 @@
 
 "use strict";
 
-var path = require("path"),
-	express = require("express"),
-	routes = require(path.join(__dirname, "router.js")),
+var express = require("express"),
+	routes = require("router.js"),
 	bodyParser = require("body-parser"),
 	app = express();
 
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static("/public")));
 app.use(bodyParser.text());
 app.use("/", routes);
 
