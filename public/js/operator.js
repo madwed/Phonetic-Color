@@ -75,11 +75,11 @@ function Operator () {
 		this.updateKeyCanvas(x, y);
 		this.renderCubes();
 	};
-	var resizeHandler = function (event) {
+	var resizeHandler = function () {
 		this.drawContent(this.lastString);
 		this.resizeCubes();
 		this.initKeys();
-		this.drawKeys(true);	
+		this.drawKeys(true);
 	};
 	keyClickHandler = keyClickHandler.bind(this);
 	keyCanvas.addEventListener("click", keyClickHandler);
@@ -120,5 +120,5 @@ Operator.prototype.color = function (colorCode) {
 	if(this.lastString){
 		this.drawContent(this.lastString);
 	}
-}
+};
 

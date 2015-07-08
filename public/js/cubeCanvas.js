@@ -1,4 +1,6 @@
-(function(){
+(function () {
+
+"use strict";
 
 //Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
 
@@ -13,24 +15,24 @@ canvas.height = canvas.width * 3 / 4;
 canvas.style.height = canvas.height + "px";
 canvas.style.width = canvas.width + "px";
 
-var camera = new THREE.PerspectiveCamera( 20, canvas.width/canvas.height, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 20, canvas.width / canvas.height, 0.1, 1000 );
 
 var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, precision: "highp"});
-renderer.setSize( canvas.width, canvas.height );
-renderer.setClearColor( 0xffffff, 1 );
+renderer.setSize(canvas.width, canvas.height);
+renderer.setClearColor(0xffffff, 1);
 
-var vowels = { 
+var vowels = {
 	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], E: [0, 3, 3],
 	EH: [0, 3, 2], IH: [0, 2, 4], IY: [0, 3, 5], O: [1, 0, 3], UH: [1, 1, 4],
-	UW: [1, 0, 5] 
+	UW: [1, 0, 5]
 };
 
-var consonants = { 
+var consonants = {
 	B: [5, 0, 0], CH: [4, 2, 4], D: [5, 0, 3], DH: [2, 0, 2], F: [2, 2, 1],
 	G: [5, 0, 6], HH: [2, 1, 7], JH: [4, 0, 4], K: [5, 2, 6], L: [0, 0, 3],
 	M: [6, 0, 0], N: [6, 0, 3], NG: [6, 0, 6], P: [5, 2, 0], R: [1, 0, 3],
 	S: [3, 2, 3], SH: [3, 2, 4], T: [5, 2, 3], TH: [1, 2, 2], V: [1, 0, 1],
-	W: [0, 0, 0], Y: [0, 0, 5], Z: [2, 0, 3], ZH: [2, 0, 4] 
+	W: [0, 0, 0], Y: [0, 0, 5], Z: [2, 0, 3], ZH: [2, 0, 4]
 };
 
 var cubeGeometry = new THREE.BoxGeometry( 8, 8, 8 );
@@ -65,6 +67,7 @@ var consonantScaler = function (phoneme) {
 
 var cubes = {};
 function addToModel (phonemes, scaler) {
+	var neme;
 	for (neme in phonemes){
 		var letter = new THREE.TextGeometry(neme, font);
 		var phoneme = scaler(phonemes[neme]);
@@ -103,14 +106,9 @@ scene.add(labels);
 
 camera.position.set(-213, 406, 289);
 
-
-var controls = new THREE.OrbitControls(camera, canvas);
-controls.damping = 0.2;
-controls.addEventListener( 'change', render );
-
 var render = function () {
 	camera.lookAt(new THREE.Vector3(60, 60, 80));
-	var labelRotate = labels.children;	
+	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++){
 		labelRotate[i].lookAt(camera.position);
 	}
@@ -119,6 +117,10 @@ var render = function () {
 		requestAnimationFrame( render );
 	}
 };
+
+var controls = new THREE.OrbitControls(camera, canvas);
+controls.damping = 0.2;
+controls.addEventListener( "change", render );
 
 
 var updateCube = function(key, color){
@@ -166,8 +168,5 @@ Operator.prototype.resizeCubes = function(){
 Operator.prototype.renderCubes = function(){
 	render();
 };
-
-
-
 
 })();

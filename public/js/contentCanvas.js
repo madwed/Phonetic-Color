@@ -1,4 +1,4 @@
-(function(){
+(function () {
 
 "use strict";
 
@@ -16,9 +16,9 @@ Operator.prototype.drawContent = function (codeString) {
 		word, codedWord, codedLength, canvasHeight,
 		color, cIndex;
 	//Calculate the height the ca nvas should be for the input
-	canvasHeight = codedWords.reduce(function(col0Row1, currentWord){
+	canvasHeight = codedWords.reduce(function (col0Row1, currentWord) {
 		col0Row1[1] += currentWord.length * phoWidth;
-		if(col0Row1[1] > rightMargin){
+		if (col0Row1[1] > rightMargin) {
 			col0Row1[1] = currentWord.length * phoWidth + margin;
 			col0Row1[0] += newLine;
 		}
@@ -28,7 +28,7 @@ Operator.prototype.drawContent = function (codeString) {
 	canvasHeight = canvasHeight[0] + row + row;
 	textCanvas.height = canvasHeight;
 	textCanvas.style.height = canvasHeight + "px";
-	
+
 
 	//Decode the words into arrays of colors
 	codedWords = codedWords.map(function(codeWord){
@@ -59,4 +59,4 @@ Operator.prototype.drawContent = function (codeString) {
 	}
 };
 
-})();
+}());

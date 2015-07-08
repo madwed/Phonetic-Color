@@ -466,6 +466,7 @@
         }
     }
     R.version = "2.1.2";
+    //This is just a shim, only runs once when the app loads in client
     R.posStyle = "absolute";
     R.eve = eve;
     var loaded,
@@ -7023,7 +7024,7 @@
             R._g.doc.body.appendChild(cnvs);
             isFloating = 1;
         } else {
-            cnvs.style.cssText = css + "position:relative";
+            cnvs.style.cssText = css + "position:" + R.posStyle;
             if (container.firstChild) {
                 container.insertBefore(cnvs, container.firstChild);
             } else {
