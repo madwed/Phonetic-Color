@@ -11,7 +11,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.text());
 app.use("/", routes);
 
-app.listen(3000, function (err) {
+app.listen(process.env.PORT || 3000, function (err) {
 	if (err) { console.error(err); }
 	console.log("Up and running");
 });
