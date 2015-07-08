@@ -4,22 +4,21 @@
 
 //Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
 
-var canvas = document.getElementById("cubeCanvas"),
+var cubeCanvas = document.getElementById("cubeCanvas"),
 	cubeCol = document.getElementById("sizer"),
 	mousePresent = false;
 
 
 var scene = new THREE.Scene();
-canvas.width = cubeCol.clientWidth * 0.9;
-canvas.height = canvas.width * 3 / 4;
-canvas.style.height = canvas.height + "px";
-canvas.style.width = canvas.width + "px";
+cubeCanvas.width = cubeCol.clientWidth * 0.9;
+cubeCanvas.height = cubeCanvas.width * 3 / 4;
+cubeCanvas.style.height = cubeCanvas.height + "px";
+cubeCanvas.style.width = cubeCanvas.width + "px";
 
-var camera = new THREE.PerspectiveCamera( 20, canvas.width / canvas.height, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 20, cubeCanvas.width / cubeCanvas.height, 0.1, 1000 );
 
-var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true, precision: "highp"});
-renderer.setSize(canvas.width, canvas.height);
-renderer.setClearColor(0xffffff, 1);
+var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "lowp"});
+renderer.setSize(cubeCanvas.width, cubeCanvas.height);
 
 var vowels = {
 	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], E: [0, 3, 3],
@@ -68,7 +67,7 @@ var consonantScaler = function (phoneme) {
 var cubes = {};
 function addToModel (phonemes, scaler) {
 	var neme;
-	for (neme in phonemes){
+	for (neme in phonemes) {
 		var letter = new THREE.TextGeometry(neme, font);
 		var phoneme = scaler(phonemes[neme]);
 		//Scale the roundness, backness and height of each vowel to fit the RGB scale of 0.0-1.0
@@ -109,28 +108,28 @@ camera.position.set(-213, 406, 289);
 var render = function () {
 	camera.lookAt(new THREE.Vector3(60, 60, 80));
 	var labelRotate = labels.children;
-	for(var i = 0; i < labelRotate.length; i++){
+	for(var i = 0; i < labelRotate.length; i++) {
 		labelRotate[i].lookAt(camera.position);
 	}
 	renderer.render(scene, camera);
-	if(mousePresent){ /////////ADDD THIS ADD THIS
+	if(mousePresent) {
 		requestAnimationFrame( render );
 	}
 };
 
-var controls = new THREE.OrbitControls(camera, canvas);
+var controls = new THREE.OrbitControls(camera, cubeCanvas);
 controls.damping = 0.2;
 controls.addEventListener( "change", render );
 
 
-var updateCube = function(key, color){
-	cubes[key].cube.material.color = new THREE.Color( color );
-	cubes[key].label.material.color = new THREE.Color( color );
+var updateCube = function (key, color) {
+	cubes[key].cube.material.color = new THREE.Color(color);
+	cubes[key].label.material.color = new THREE.Color(color);
 };
 
-var reset = function(){
+var reset = function () {
 	var customCode = this.customCode;
-	Object.keys(customCode).forEach(function(code){
+	Object.keys(customCode).forEach(function (code) {
 		var phoneme = customCode[code];
 		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
 		cubes[phoneme.phoneme].label.material.color = new THREE.Color(phoneme.color);
@@ -151,21 +150,21 @@ var stopRender = function () {
 	mousePresent = false;
 };
 
-canvas.addEventListener("mousedown", startRender);
-canvas.addEventListener("mouseup", stopRender);
-canvas.addEventListener("touchstart", startRender);
-canvas.addEventListener("touchend", stopRender);
+cubeCanvas.addEventListener("mousedown", startRender);
+cubeCanvas.addEventListener("mouseup", stopRender);
+cubeCanvas.addEventListener("touchstart", startRender);
+cubeCanvas.addEventListener("touchend", stopRender);
 
-Operator.prototype.resizeCubes = function(){
-	canvas.width = cubeCol.clientWidth * 0.9;
-	canvas.height = canvas.width * 3 / 4;
-	canvas.style.height = canvas.height + "px";
-	canvas.style.width = canvas.width + "px";
-	renderer.setSize( canvas.width, canvas.height );
+Operator.prototype.resizeCubes = function () {
+	cubeCanvas.width = cubeCol.clientWidth * 0.9;
+	cubeCanvas.height = cubeCanvas.width * 3 / 4;
+	cubeCanvas.style.height = cubeCanvas.height + "px";
+	cubeCanvas.style.width = cubeCanvas.width + "px";
+	renderer.setSize( cubeCanvas.width, cubeCanvas.height );
 	render();
 };
 
-Operator.prototype.renderCubes = function(){
+Operator.prototype.renderCubes = function () {
 	render();
 };
 

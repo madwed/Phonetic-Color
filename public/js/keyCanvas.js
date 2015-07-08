@@ -42,7 +42,7 @@ Operator.prototype.initKeys = function () {
 		colorBox.value = clr.replace(reg, "#$1$2$3");
 		colorBox.style.background = clr;
 	};
-	//Set the swatch array and swatch dimensions
+	// Set the swatch array and swatch dimensions
 	var swatches = [],
 		swatchWidth = keyCanvas.width * 0.0541,
 		swatchHeight = keyCanvas.height * 0.0714;
@@ -115,4 +115,5 @@ Operator.prototype.initKeys = function () {
 		}
 	};
 };
+
 })();

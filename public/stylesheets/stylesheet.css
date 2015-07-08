@@ -137,12 +137,13 @@ button{
 
 
 #cubeCanvas{
-	width: 100%;
+	width: 90%;
 
 	border-top: 5px solid black;
 	border-right: 1px solid black;
 	border-bottom: 3px solid black;
 	border-left: 2px solid black;
+	-khtml-border-radius: 25px 100px 25px 100px;
 	-webkit-border-radius: 25px 100px 25px 100px;
 	-moz-border-radius: 25px 100px 25px 100px;
 	border-radius: 25px 100px 25px 100px;
