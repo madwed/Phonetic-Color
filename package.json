@@ -7,10 +7,7 @@
   "dependencies": {
     "body-parser": "^1.13.1",
     "express": "^4.12.4",
-    "morgan": "^1.6.0",
-    "split": "^0.3.3",
     "three": "^0.71.0",
-    "through2": "^0.6.3"
   },
   "devDependencies": {},
   "engines": {
