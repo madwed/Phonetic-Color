@@ -3,7 +3,7 @@
 "use strict";
 
 var express = require("express"),
-	routes = require("./router.js"),
+	routes = require(__dirname + "/router.js"),
 	bodyParser = require("body-parser"),
 	app = express();
 

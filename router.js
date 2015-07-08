@@ -6,7 +6,7 @@ var express = require("express"),
 	encode = require("./wordColorer.js");
 
 router.get("/", function (req, res, next) {
-	res.sendFile("./index.html");
+	res.sendFile(__dirname + "/index.html");
 });
 
 router.post("/submit", function (req, res, next) {
