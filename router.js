@@ -3,12 +3,10 @@
 
 var express = require("express"),
 	router = express.Router(),
-	fs = require("fs"),
-	index = fs.readFileSync("./index.html", "utf8"),
 	encode = require("./wordColorer.js");
 
 router.get("/", function (req, res, next) {
-	res.send(index);
+	res.send("/index.html");
 });
 
 router.post("/submit", function (req, res, next) {
