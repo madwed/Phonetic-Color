@@ -137,7 +137,7 @@ button{
 
 
 #cubeCanvas{
-	width: 90%;
+	width: 100%;
 
 	border-top: 5px solid black;
 	border-right: 1px solid black;
@@ -146,9 +146,8 @@ button{
 	-webkit-border-radius: 25px 100px 25px 100px;
 	-moz-border-radius: 25px 100px 25px 100px;
 	border-radius: 25px 100px 25px 100px;
-
+	z-index: 1;
 	overflow: hidden;
-
 }
 
 
