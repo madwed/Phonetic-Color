@@ -102,11 +102,11 @@ function Operator () {
 
 //Takes a hex color string or a code object
 Operator.prototype.color = function (colorCode) {
-	var code, customCode = this.customCode;
 	//If the colorCode is a code object, set clone it to customCode
 	if(typeof colorCode === "object"){
-		customCode = JSON.parse(JSON.stringify(colorCode));
+		this.customCode = JSON.parse(JSON.stringify(colorCode));
 	}else{
+		var code, customCode = this.customCode;
 		//Else loop over and assign each color to the color string
 		for(code in customCode){
 			customCode[code].color = colorCode;
