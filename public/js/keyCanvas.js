@@ -32,6 +32,10 @@ Operator.prototype.initKeys = function(){
 	colorBox.value = colorBox.value ? colorBox.value : "#655555";
 	//Set up the colorPicker
 	this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, colorBox.value);
+	if(window.innerWidth > 1200){
+		console.log(this.cp);
+		this.cp.raphael.posStyle = "fixed";
+	}
 	this.cp.onchange = function (clr) {
 		colorBox.value = clr.replace(reg, "#$1$2$3");
 		colorBox.style.background = clr;
