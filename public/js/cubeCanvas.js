@@ -103,14 +103,12 @@ camera.position.set(-213, 406, 289);
 
 
 var render = function () {
+	if(!mousePresent) { return; }
 	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++) {
 		labelRotate[i].lookAt(camera.position);
 	}
 	renderer.render(scene, camera);
-	if(mousePresent) {
-		requestAnimationFrame( render );
-	}
 };
 
 var controls = new THREE.OrbitControls(camera, cubeCanvas);
@@ -138,18 +136,17 @@ camera.lookAt(new THREE.Vector3(60, 60, 80));
 render();
 
 var startRender = function () {
-	if(!mousePresent) {
-		mousePresent = true;
-		render();
-	}
+	mousePresent = true;
 };
 var stopRender = function () {
 	mousePresent = false;
 };
 
 cubeCanvas.addEventListener("mousedown", startRender);
+cubeCanvas.addEventListener("mousemove", render);
 cubeCanvas.addEventListener("mouseup", stopRender);
 cubeCanvas.addEventListener("touchstart", startRender);
+cubeCanvas.addEventListener("touchmove", render);
 cubeCanvas.addEventListener("touchend", stopRender);
 
 Operator.prototype.resizeCubes = function () {
