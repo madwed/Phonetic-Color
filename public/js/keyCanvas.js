@@ -22,7 +22,7 @@ Operator.prototype.initKeys = function () {
 	//Position the colorBox relative to the keyCanvas
 	var keyRect = keyCanvas.getBoundingClientRect();
 	colorBox.style.left = keyRect.right - 15 + "px";
-	colorBox.style.top = keyRect.bottom - colorBox.height * 8 / 5 + "px";
+	colorBox.style.top = keyRect.bottom / 2.25 + "px";
 
 	//Set the scale of the colorPicker
 	var scale = keyCanvas.height / 4;
