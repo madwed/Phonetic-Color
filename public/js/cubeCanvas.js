@@ -7,8 +7,8 @@ var cubeCanvas = document.getElementById("cubeCanvas"),
 	mousePresent = false;
 
 var calculateCubeCanvas = function () {
-	cubeCanvas.width = cubeCol.clientWidth * 0.9;
-	cubeCanvas.height = cubeCanvas.width * 3 / 4;
+	cubeCanvas.width = cubeCol.clientWidth * 0.98;
+	cubeCanvas.height = cubeCanvas.width * 2 / 3;
 	cubeCanvas.style.height = cubeCanvas.height + "px";
 	cubeCanvas.style.width = cubeCanvas.width + "px";
 };

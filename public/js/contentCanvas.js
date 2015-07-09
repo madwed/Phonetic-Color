@@ -7,8 +7,9 @@ var textCanvas = document.getElementById("textCanvas"),
 	contentCol = document.getElementById("mapper");
 
 Operator.prototype.drawContent = function (codeString) {
-	textCanvas.width = contentCol.clientWidth * 0.92;
+	textCanvas.width = contentCol.clientWidth * 0.9;
 	textCanvas.style.width = textCanvas.width + "px";
+	codeString = codeString ? codeString : "";
 	var codedWords = codeString.split("J"), codedWordsLength = codedWords.length,
 		phoWidth = 4, phoHeight = 20,
 		margin = 40, rightMargin = textCanvas.clientWidth - margin - phoWidth,
@@ -16,18 +17,20 @@ Operator.prototype.drawContent = function (codeString) {
 		word, codedWord, codedLength, canvasHeight,
 		color, cIndex;
 	//Calculate the height the ca nvas should be for the input
-	canvasHeight = codedWords.reduce(function (col0Row1, currentWord) {
-		col0Row1[1] += currentWord.length * phoWidth;
-		if (col0Row1[1] > rightMargin) {
-			col0Row1[1] = currentWord.length * phoWidth + margin;
-			col0Row1[0] += newLine;
-		}
-		col0Row1[1] += space;
-		return col0Row1;
-	}, [phoHeight, 0]);
-	canvasHeight = canvasHeight[0] + row + row;
-	textCanvas.height = canvasHeight;
-	textCanvas.style.height = canvasHeight + "px";
+	if(codeString) {
+		canvasHeight = codedWords.reduce(function (col0Row1, currentWord) {
+			col0Row1[1] += currentWord.length * phoWidth;
+			if (col0Row1[1] > rightMargin) {
+				col0Row1[1] = currentWord.length * phoWidth + margin;
+				col0Row1[0] += newLine;
+			}
+			col0Row1[1] += space;
+			return col0Row1;
+		}, [phoHeight, 0]);
+		canvasHeight = canvasHeight[0] + row + row;
+		textCanvas.height = canvasHeight;
+		textCanvas.style.height = canvasHeight + "px";
+	}
 
 
 	//Decode the words into arrays of colors

@@ -14,7 +14,7 @@ colorBox.value = "#655555";
 
 Operator.prototype.initKeys = function () {
 	//Calculate the width and height of the keyCanvas
-	keyCanvas.width = cubeCol.clientWidth * 0.85;
+	keyCanvas.width = cubeCol.clientWidth * 0.925;
 	keyCanvas.height = keyCanvas.width * 3 / 4;
 	keyCanvas.style.height = keyCanvas.height + "px";
 	keyCanvas.style.width = keyCanvas.width + "px";
@@ -31,7 +31,7 @@ Operator.prototype.initKeys = function () {
 	//If the colorPicker exists this is a resize, remove the colorPicker
 	if(this.cp) { this.cp.remove(); }
 	//Set up the colorPicker
-	this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, colorBox.value);
+	this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 7 / 6, scale, colorBox.value);
 	//Fix for colorPicker positioning
 	if(window.innerWidth > 1200) {
         this.cp.raphael.canvas.style.position = "fixed";
@@ -121,9 +121,7 @@ Operator.prototype.initKeys = function () {
 			drawKey(color, updateSwatch.phoneme, updateX, updateY);
 
 			code[updateSwatch.key].color = colorBox.value;
-			if (this.lastString) {
-				this.drawContent(this.lastString);
-			}
+			this.drawContent(this.lastString);
 			this.updateCube(updateSwatch.phoneme, colorBox.value);
 		}
 	};
