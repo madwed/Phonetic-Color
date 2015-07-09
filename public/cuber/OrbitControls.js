@@ -27,7 +27,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	// "target" sets the location of focus, where the control orbits around
 	// and where it pans with respect to.
-	this.target = new THREE.Vector3();
+	this.target = new THREE.Vector3(60, 60, 80);
 
 	// center is old, deprecated; use "target" instead
 	this.center = this.target;
@@ -64,7 +64,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	// How far you can orbit horizontally, upper and lower limits.
 	// If set, must be a sub-interval of the interval [ - Math.PI, Math.PI ].
-	this.minAzimuthAngle = - Infinity; // radians
+	this.minAzimuthAngle = -Infinity; // radians
 	this.maxAzimuthAngle = Infinity; // radians
 
 	// Set to true to disable use of the keys

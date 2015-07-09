@@ -31,24 +31,24 @@ Operator.prototype.drawContent = function (codeString) {
 
 
 	//Decode the words into arrays of colors
-	codedWords = codedWords.map(function(codeWord){
+	codedWords = codedWords.map(function (codeWord) {
 		var colors = [], letter = 0, wordLength = codeWord.length;
-		for(letter; letter < wordLength; letter++){
+		for(letter; letter < wordLength; letter++) {
 			colors.push(this.customCode[codeWord[letter]].color);
 		}
 		return colors;
 	}, this);
 	//For each color coded word
-	for(word = 0; word < codedWordsLength; word++){
+	for(word = 0; word < codedWordsLength; word++) {
 		codedWord = codedWords[word];
 		codedLength = codedWord.length;
 		//If the word would cross the right margin, \n
-		if((col + codedLength * phoWidth) > rightMargin){
+		if(col + codedLength * phoWidth > rightMargin) {
 			col = margin;
 			row += newLine;
 		}
 		//Draw the word
-		for(cIndex = 0; cIndex < codedWord.length; cIndex++){
+		for(cIndex = 0; cIndex < codedWord.length; cIndex++) {
 			color = codedWord[cIndex];
 			textCtx.fillStyle = color;
 			textCtx.fillRect(col, row, phoWidth, phoHeight);

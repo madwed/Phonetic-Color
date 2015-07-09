@@ -86,13 +86,8 @@ function addToModel (phonemes, scaler) {
 		cube.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
 		cubeFrame.position.set(phoneme[0] * scale, phoneme[1] * scale, phoneme[2] * scale);
 		label.position.set(phoneme[0] * scale + labelOffset, phoneme[1] * scale + labelOffset, phoneme[2] * scale + labelOffset);
-		//Build and position the outline of each label
-		var outlineMaterial1 = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide } );
-		var outlineMesh = new THREE.Mesh( letter, outlineMaterial1 );
-		outlineMesh.position.set(phoneme[0] * scale + labelOffset, phoneme[1] * scale + labelOffset, phoneme[2] * scale + labelOffset);
-		outlineMesh.scale.multiplyScalar(1.07);
-		labels.add( outlineMesh );
-		cubes[neme] = {cube: cube, label: outlineMesh};
+
+		cubes[neme] = {cube: cube};
 	}
 }
 
@@ -105,8 +100,8 @@ scene.add(labels);
 
 camera.position.set(-213, 406, 289);
 
+
 var render = function () {
-	camera.lookAt(new THREE.Vector3(60, 60, 80));
 	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++) {
 		labelRotate[i].lookAt(camera.position);
@@ -140,6 +135,7 @@ var reset = function () {
 Operator.prototype.updateCube = updateCube;
 Operator.prototype.resetCubes = reset;
 
+camera.lookAt(new THREE.Vector3(60, 60, 80));
 render();
 
 var startRender = function () {

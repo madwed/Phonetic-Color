@@ -45,10 +45,10 @@ function Operator () {
 	var postText = function () {
 		var string = document.getElementById("text_field").value,
 			xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function(){
-			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+		xmlhttp.onreadystatechange = function () {
+			if(xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				self.lastString = xmlhttp.responseText;
-				if(self.lastString){
+				if(self.lastString) {
 					self.drawContent(self.lastString);
 					self.tally(self.lastString);
 					self.wordy(self.lastString);
@@ -76,6 +76,7 @@ function Operator () {
 		this.renderCubes();
 	};
 	var resizeHandler = function () {
+
 		this.drawContent(this.lastString);
 		this.resizeCubes();
 		this.initKeys();
@@ -103,12 +104,12 @@ function Operator () {
 //Takes a hex color string or a code object
 Operator.prototype.color = function (colorCode) {
 	//If the colorCode is a code object, set clone it to customCode
-	if(typeof colorCode === "object"){
+	if(typeof colorCode === "object") {
 		this.customCode = JSON.parse(JSON.stringify(colorCode));
-	}else{
+	}else {
 		var code, customCode = this.customCode;
 		//Else loop over and assign each color to the color string
-		for(code in customCode){
+		for(code in customCode) {
 			customCode[code].color = colorCode;
 		}
 	}
@@ -117,7 +118,7 @@ Operator.prototype.color = function (colorCode) {
 	//Reset the Cubes
 	this.resetCubes();
 	//If there is a lastString reset the content
-	if(this.lastString){
+	if(this.lastString) {
 		this.drawContent(this.lastString);
 	}
 };

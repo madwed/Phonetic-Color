@@ -15,7 +15,7 @@ Translate phonemes to color
 var fs = require("fs");
 var path = require("path");
 
-function makeDict(filePath, entryFunc) {
+function makeDict (filePath, entryFunc) {
 	var phoneDict = fs.readFileSync(filePath, "utf8");
 	var dictionary = {};
 	phoneDict = phoneDict.split(/[\n\r]/);
@@ -44,7 +44,7 @@ var colorDict = makeDict(colorPath, colorEntry);
 // Takes a space separated string
 // Returns an array of phoneme arrays
 var stringToPhonemes = function (string) {
-	if(!string){ return []; }
+	if(!string) { return []; }
 	string = string.replace(/[^\w\s|_]/g, "");
 	var words = string.split(/\s+/);
 	var phonemes = [];
@@ -59,11 +59,11 @@ var phonemesToColorString = function (phonemes) {
 	var colorString = "",
 		phonemeLength = phonemes.length, wordLength,
 		wordEntry, phoEntry, word;
-	for(wordEntry = 0; wordEntry < phonemeLength; wordEntry++){
+	for(wordEntry = 0; wordEntry < phonemeLength; wordEntry++) {
 		word = phonemes[wordEntry];
-		if(!word){ continue; }
+		if(!word) { continue; }
 		wordLength = word.length;
-		for(phoEntry = 0; phoEntry < wordLength; phoEntry++){
+		for(phoEntry = 0; phoEntry < wordLength; phoEntry++) {
 			colorString += colorDict[word[phoEntry]];
 		}
 		colorString += "J";
