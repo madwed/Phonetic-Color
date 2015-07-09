@@ -475,8 +475,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 		if ( state !== STATE.NONE ) scope.update();
 
 	}
-
-	function onMouseUp( /* event */ ) {
+	/* event  vvv param below*/
+	function onMouseUp () {
 
 		if ( scope.enabled === false ) return;
 		event.preventDefault();
@@ -676,9 +676,9 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	}
 	/* event  vvvv param below*/
-	function touchend() {
+	function touchend () {
 
-		if ( scope.enabled === false ) return;
+		if ( scope.enabled === false ) { return; }
 		event.preventDefault();
 		scope.dispatchEvent( endEvent );
 		state = STATE.NONE;
