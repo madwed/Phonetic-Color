@@ -2,23 +2,17 @@
 
 "use strict";
 
-//Pretty sure the THREE Scene is running simultaneously on resize, need to figure out how to stop and clear a scene
-
 var cubeCanvas = document.getElementById("cubeCanvas"),
 	cubeCol = document.getElementById("sizer"),
 	mousePresent = false;
 
-
-var scene = new THREE.Scene();
-cubeCanvas.width = cubeCol.clientWidth * 0.9;
-cubeCanvas.height = cubeCanvas.width * 3 / 4;
-cubeCanvas.style.height = cubeCanvas.height + "px";
-cubeCanvas.style.width = cubeCanvas.width + "px";
-
-var camera = new THREE.PerspectiveCamera( 20, cubeCanvas.width / cubeCanvas.height, 0.1, 1000 );
-
-var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "highp"});
-renderer.setSize(cubeCanvas.width, cubeCanvas.height);
+var calculateCubeCanvas = function () {
+	cubeCanvas.width = cubeCol.clientWidth * 0.9;
+	cubeCanvas.height = cubeCanvas.width * 3 / 4;
+	cubeCanvas.style.height = cubeCanvas.height + "px";
+	cubeCanvas.style.width = cubeCanvas.width + "px";
+};
+calculateCubeCanvas();
 
 var vowels = {
 	AA: [0, 0, 0], AE: [0, 3, 1], AH: [0, 0, 2], AO: [1, 0, 2], E: [0, 3, 3],
@@ -34,19 +28,20 @@ var consonants = {
 	W: [0, 0, 0], Y: [0, 0, 5], Z: [2, 0, 3], ZH: [2, 0, 4]
 };
 
-var cubeGeometry = new THREE.BoxGeometry( 8, 8, 8 );
-var labels = new THREE.Object3D();
-
 var font = {
 	size: 4,
 	height: 1
 };
 
-var color = new THREE.Color();
-var labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000});
-var labelOffset = 4;
-var scale = 150;
-var gray = parseInt("cccccc", 16);
+var scene = new THREE.Scene(),
+	camera = new THREE.PerspectiveCamera( 20, cubeCanvas.width / cubeCanvas.height, 0.1, 1000 ),
+	cubeGeometry = new THREE.BoxGeometry( 8, 8, 8 ),
+	labels = new THREE.Object3D(),
+	boxColor = new THREE.Color(),
+	labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000}),
+	labelOffset = 4,
+	scale = 150,
+	gray = parseInt("cccccc", 16);
 
 var vowelScaler = function (phoneme) {
 	var roundness = phoneme[0] / 5,
@@ -65,15 +60,15 @@ var consonantScaler = function (phoneme) {
 };
 
 var cubes = {};
-function addToModel (phonemes, scaler) {
+var addToModel = function (phonemes, scaler) {
 	var neme;
 	for (neme in phonemes) {
 		var letter = new THREE.TextGeometry(neme, font);
 		var phoneme = scaler(phonemes[neme]);
 		//Scale the roundness, backness and height of each vowel to fit the RGB scale of 0.0-1.0
-		color.setRGB(phoneme[0], phoneme[1], phoneme[2]);
+		boxColor.setRGB(phoneme[0], phoneme[1], phoneme[2]);
 		//Create the cube and label
-		var material = new THREE.MeshBasicMaterial( { color: color } );
+		var material = new THREE.MeshBasicMaterial( { color: boxColor } );
 		var cube = new THREE.Mesh( cubeGeometry, material );
 		var cubeFrame = new THREE.BoxHelper(cube);
 		cubeFrame.material.color.setHex(gray);
@@ -90,19 +85,15 @@ function addToModel (phonemes, scaler) {
 
 		cubes[neme] = {cube: cube};
 	}
-}
-
+};
 
 addToModel(vowels, vowelScaler);
 addToModel(consonants, consonantScaler);
-
 scene.add(labels);
 
-
-camera.position.set(-213, 406, 289);
-
-
-var render = function (init) {
+var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "highp"});
+renderer.setSize(cubeCanvas.width, cubeCanvas.height);
+var render = function () {
 	if(!mousePresent) { return; }
 	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++) {
@@ -115,23 +106,7 @@ var controls = new THREE.OrbitControls(camera, cubeCanvas);
 controls.damping = 0.2;
 controls.addEventListener( "change", render );
 
-
-var updateCube = function (key, color) {
-	cubes[key].cube.material.color = new THREE.Color(color);
-};
-
-var reset = function () {
-	var customCode = this.customCode;
-	Object.keys(customCode).forEach(function (code) {
-		var phoneme = customCode[code];
-		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
-	});
-	render();
-};
-
-Operator.prototype.updateCube = updateCube;
-Operator.prototype.resetCubes = reset;
-
+camera.position.set(-213, 406, 289);
 camera.lookAt(new THREE.Vector3(60, 60, 80));
 mousePresent = true;
 render();
@@ -152,15 +127,25 @@ cubeCanvas.addEventListener("touchmove", render);
 cubeCanvas.addEventListener("touchend", stopRender);
 
 Operator.prototype.resizeCubes = function () {
-	cubeCanvas.width = cubeCol.clientWidth * 0.9;
-	cubeCanvas.height = cubeCanvas.width * 3 / 4;
-	cubeCanvas.style.height = cubeCanvas.height + "px";
-	cubeCanvas.style.width = cubeCanvas.width + "px";
+	calculateCubeCanvas();
 	renderer.setSize( cubeCanvas.width, cubeCanvas.height );
 	render();
 };
 
 Operator.prototype.renderCubes = function () {
+	render();
+};
+
+Operator.prototype.updateCube = function (phoneme, color) {
+	cubes[phoneme].cube.material.color = new THREE.Color(color);
+};
+
+Operator.prototype.resetCubes = function () {
+	var customCode = this.customCode;
+	Object.keys(customCode).forEach(function (code) {
+		var phoneme = customCode[code];
+		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
+	});
 	render();
 };
 

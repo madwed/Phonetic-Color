@@ -52,7 +52,9 @@ Operator.prototype.initKeys = function () {
 			startX = marginLeft,
 			startY = swatchHeight,
 			spacing = swatchHeight * 0.7,
-			customCode = this.customCode;
+			customCode = this.customCode,
+			color, colorHsb,
+			swatch, phonemeText, xPosText, yPosText;
 		if(reset) {
 			swatches = [];
 			for(var key in customCode) {
@@ -72,18 +74,28 @@ Operator.prototype.initKeys = function () {
 		keyCtx.lineWidth = 1;
 		keyCtx.strokeStyle = "#cccccc";
 		keyCtx.clearRect(0, 0, keyCanvas.width, keyCanvas.height);
-		for(var i = 0; i < swatches.length; i++) {
+		for(swatch = 0; swatch < swatches.length; swatch++) {
 			if(startX > marginRight) {
 				startY += swatchHeight + spacing;
 				startX = marginLeft;
 			}
-			keyCtx.fillStyle = swatches[i].color;
-			keyCtx.fillText(swatches[i].phoneme, startX + swatchWidth + swatchWidth / 4, startY + swatchHeight * 9 / 10);
+			color = swatches[swatch].color;
+			keyCtx.fillStyle = color;
+			phonemeText = swatches[swatch].phoneme;
+			xPosText = startX + swatchWidth + swatchWidth / 4;
+			yPosText = startY + swatchHeight * 9 / 10;
+
+			keyCtx.fillText(phonemeText, xPosText, yPosText);
 			keyCtx.fillRect(startX, startY, swatchWidth, swatchHeight);
-			keyCtx.strokeText(swatches[i].phoneme, startX + swatchWidth + swatchWidth / 4, startY + swatchHeight * 9 / 10);
-			keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
-			swatches[i].position.x = startX + swatchWidth / 2;
-			swatches[i].position.y = startY + swatchHeight / 2;
+
+			colorHsb = Raphael.rgb2hsb(color);
+			if(colorHsb.b > 0.9 && colorHsb.s < 0.21) {
+				keyCtx.strokeText(phonemeText, xPosText, yPosText);
+				keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
+			}
+
+			swatches[swatch].position.x = startX + swatchWidth / 2;
+			swatches[swatch].position.y = startY + swatchHeight / 2;
 			startX += swatchWidth * 13 / 4;
 		}
 	};
