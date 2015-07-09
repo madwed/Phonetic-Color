@@ -17,7 +17,7 @@ cubeCanvas.style.width = cubeCanvas.width + "px";
 
 var camera = new THREE.PerspectiveCamera( 20, cubeCanvas.width / cubeCanvas.height, 0.1, 1000 );
 
-var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "lowp"});
+var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "highp"});
 renderer.setSize(cubeCanvas.width, cubeCanvas.height);
 
 var vowels = {
