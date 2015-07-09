@@ -143,8 +143,10 @@ Operator.prototype.resetCubes = reset;
 render();
 
 var startRender = function () {
-	mousePresent = true;
-	render();
+	if(!mousePresent) {
+		mousePresent = true;
+		render();
+	}
 };
 var stopRender = function () {
 	mousePresent = false;
