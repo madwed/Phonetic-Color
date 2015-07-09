@@ -102,7 +102,7 @@ scene.add(labels);
 camera.position.set(-213, 406, 289);
 
 
-var render = function () {
+var render = function (init) {
 	if(!mousePresent) { return; }
 	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++) {
@@ -133,7 +133,9 @@ Operator.prototype.updateCube = updateCube;
 Operator.prototype.resetCubes = reset;
 
 camera.lookAt(new THREE.Vector3(60, 60, 80));
+mousePresent = true;
 render();
+mousePresent = false;
 
 var startRender = function () {
 	mousePresent = true;
