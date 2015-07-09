@@ -93,8 +93,8 @@ scene.add(labels);
 
 var renderer = new THREE.WebGLRenderer({canvas: cubeCanvas, antialias: true, alpha: true, precision: "highp"});
 renderer.setSize(cubeCanvas.width, cubeCanvas.height);
-var render = function () {
-	if(!mousePresent) { return; }
+var render = function (force) {
+	if(!mousePresent && !force) { return; }
 	var labelRotate = labels.children;
 	for(var i = 0; i < labelRotate.length; i++) {
 		labelRotate[i].lookAt(camera.position);
@@ -108,9 +108,8 @@ controls.addEventListener( "change", render );
 
 camera.position.set(-213, 406, 289);
 camera.lookAt(new THREE.Vector3(60, 60, 80));
-mousePresent = true;
-render();
-mousePresent = false;
+
+render(true);
 
 var startRender = function () {
 	mousePresent = true;
@@ -129,15 +128,16 @@ cubeCanvas.addEventListener("touchend", stopRender);
 Operator.prototype.resizeCubes = function () {
 	calculateCubeCanvas();
 	renderer.setSize( cubeCanvas.width, cubeCanvas.height );
-	render();
+	render(true);
 };
 
 Operator.prototype.renderCubes = function () {
-	render();
+	render(true);
 };
 
 Operator.prototype.updateCube = function (phoneme, color) {
 	cubes[phoneme].cube.material.color = new THREE.Color(color);
+	render(true);
 };
 
 Operator.prototype.resetCubes = function () {
@@ -146,7 +146,7 @@ Operator.prototype.resetCubes = function () {
 		var phoneme = customCode[code];
 		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
 	});
-	render();
+	render(true);
 };
 
 })();

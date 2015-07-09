@@ -5,9 +5,11 @@
 var keyCanvas = document.getElementById("keyCanvas"),
 	keyCtx = keyCanvas.getContext("2d"),
 	cubeCol = document.getElementById("sizer"),
-	colorBox = document.getElementById("color");
+	colorBox = document.getElementById("color"),
 //Set up the Raphael Regex
-var reg = /^#(.)\1(.)\2(.)\3$/;
+	reg = /^#(.)\1(.)\2(.)\3$/;
+//Set the color box value on the first run
+colorBox.value = "#655555";
 
 
 Operator.prototype.initKeys = function () {
@@ -28,8 +30,6 @@ Operator.prototype.initKeys = function () {
 	var scale = keyCanvas.height / 4;
 	//If the colorPicker exists this is a resize, remove the colorPicker
 	if(this.cp) { this.cp.remove(); }
-	//If the colorBox has a value, keep its value, otherwise this is the first init and set it
-	colorBox.value = colorBox.value ? colorBox.value : "#655555";
 	//Set up the colorPicker
 	this.cp = Raphael.colorwheel(keyRect.right - scale * 3 / 5, keyRect.bottom - scale * 4 / 5, scale, colorBox.value);
 	//Fix for colorPicker positioning
@@ -45,7 +45,22 @@ Operator.prototype.initKeys = function () {
 	// Set the swatch array and swatch dimensions
 	var swatches = [],
 		swatchWidth = keyCanvas.width * 0.0541,
-		swatchHeight = keyCanvas.height * 0.0714;
+		swatchHeight = keyCanvas.height * 0.0714,
+		drawKey = function (color, phonemeText, x, y) {
+			var xPosText, yPosText, colorHsb;
+			keyCtx.fillStyle = color;
+			xPosText = x + swatchWidth + swatchWidth / 4;
+			yPosText = y + swatchHeight * 9 / 10;
+
+			keyCtx.fillText(phonemeText, xPosText, yPosText);
+			keyCtx.fillRect(x, y, swatchWidth, swatchHeight);
+
+			colorHsb = Raphael.rgb2hsb(color);
+			if(colorHsb.b > 0.9 && colorHsb.s < 0.21) {
+				keyCtx.strokeText(phonemeText, xPosText, yPosText);
+				keyCtx.strokeRect(x, y, swatchWidth, swatchHeight);
+			}
+		};
 	Operator.prototype.drawKeys = function (reset) {
 		var marginLeft = swatchWidth * 1.5,
 			marginRight = keyCanvas.width - marginLeft - swatchWidth,
@@ -53,8 +68,7 @@ Operator.prototype.initKeys = function () {
 			startY = swatchHeight,
 			spacing = swatchHeight * 0.7,
 			customCode = this.customCode,
-			color, colorHsb,
-			swatch, phonemeText, xPosText, yPosText;
+			swatch;
 		if(reset) {
 			swatches = [];
 			for(var key in customCode) {
@@ -72,27 +86,15 @@ Operator.prototype.initKeys = function () {
 		}
 		keyCtx.font = swatchHeight + "px sans-serif";
 		keyCtx.lineWidth = 1;
-		keyCtx.strokeStyle = "#cccccc";
 		keyCtx.clearRect(0, 0, keyCanvas.width, keyCanvas.height);
+		keyCtx.strokeStyle = "#cccccc";
 		for(swatch = 0; swatch < swatches.length; swatch++) {
 			if(startX > marginRight) {
 				startY += swatchHeight + spacing;
 				startX = marginLeft;
 			}
-			color = swatches[swatch].color;
-			keyCtx.fillStyle = color;
-			phonemeText = swatches[swatch].phoneme;
-			xPosText = startX + swatchWidth + swatchWidth / 4;
-			yPosText = startY + swatchHeight * 9 / 10;
 
-			keyCtx.fillText(phonemeText, xPosText, yPosText);
-			keyCtx.fillRect(startX, startY, swatchWidth, swatchHeight);
-
-			colorHsb = Raphael.rgb2hsb(color);
-			if(colorHsb.b > 0.9 && colorHsb.s < 0.21) {
-				keyCtx.strokeText(phonemeText, xPosText, yPosText);
-				keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
-			}
+			drawKey(swatches[swatch].color, swatches[swatch].phoneme, startX, startY);
 
 			swatches[swatch].position.x = startX + swatchWidth / 2;
 			swatches[swatch].position.y = startY + swatchHeight / 2;
@@ -103,22 +105,21 @@ Operator.prototype.initKeys = function () {
 		var updateSwatch, code = this.customCode, i;
 		for(i = 0; i < swatches.length; i++) {
 			var swatch = swatches[i];
-			//////Calculate the 10 below to make sure it works for various sizes (or at least check)
+
 			if(Math.abs(swatch.position.x - x) < swatchWidth / 2 + 10 && Math.abs(swatch.position.y - y) < swatchHeight / 2 + 10) {
 				updateSwatch = swatch;
 				break;
 			}
 		}
 		if (updateSwatch) {
-			var startX = updateSwatch.position.x - swatchWidth / 2;
-			var startY = updateSwatch.position.y - swatchHeight / 2;
-			keyCtx.clearRect(startX - 1, startY - 1, swatchWidth * 13 / 4, swatchHeight * 17 / 10);
-			keyCtx.fillStyle = colorBox.value;
-			keyCtx.fillText(updateSwatch.phoneme, startX + swatchWidth + swatchWidth / 4, startY + swatchHeight * 9 / 10);
-			keyCtx.fillRect(startX, startY, swatchWidth, swatchHeight);
+			var updateX = updateSwatch.position.x - swatchWidth / 2;
+			var updateY = updateSwatch.position.y - swatchHeight / 2;
+			var color = colorBox.value;
+			keyCtx.clearRect(updateX - 1, updateY - 1, swatchWidth * 13 / 4, swatchHeight * 17 / 10);
 			keyCtx.strokeStyle = "#cccccc";
-			keyCtx.strokeText(swatches[i].phoneme, startX + swatchWidth + swatchWidth / 4, startY + swatchHeight * 9 / 10);
-			keyCtx.strokeRect(startX, startY, swatchWidth, swatchHeight);
+
+			drawKey(color, updateSwatch.phoneme, updateX, updateY);
+
 			code[updateSwatch.key].color = colorBox.value;
 			if (this.lastString) {
 				this.drawContent(this.lastString);
