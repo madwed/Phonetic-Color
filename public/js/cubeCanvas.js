@@ -78,6 +78,7 @@ function addToModel (phonemes, scaler) {
 		var cubeFrame = new THREE.BoxHelper(cube);
 		cubeFrame.material.color.setHex(gray);
 		var label = new THREE.Mesh(letter, labelMaterial);
+
 		scene.add( cube );
 		scene.add( cubeFrame );
 		labels.add(label);
@@ -119,7 +120,6 @@ controls.addEventListener( "change", render );
 
 var updateCube = function (key, color) {
 	cubes[key].cube.material.color = new THREE.Color(color);
-	cubes[key].label.material.color = new THREE.Color(color);
 };
 
 var reset = function () {
@@ -127,7 +127,6 @@ var reset = function () {
 	Object.keys(customCode).forEach(function (code) {
 		var phoneme = customCode[code];
 		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
-		cubes[phoneme.phoneme].label.material.color = new THREE.Color(phoneme.color);
 	});
 	render();
 };
