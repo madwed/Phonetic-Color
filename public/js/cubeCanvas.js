@@ -125,28 +125,33 @@ cubeCanvas.addEventListener("touchstart", startRender);
 cubeCanvas.addEventListener("touchmove", render);
 cubeCanvas.addEventListener("touchend", stopRender);
 
-Operator.prototype.resizeCubes = function () {
-	calculateCubeCanvas();
-	renderer.setSize( cubeCanvas.width, cubeCanvas.height );
-	render(true);
+var addCubeProto = function (operator) {
+
+	operator.prototype.resizeCubes = function () {
+		calculateCubeCanvas();
+		renderer.setSize( cubeCanvas.width, cubeCanvas.height );
+		render(true);
+	};
+
+	operator.prototype.renderCubes = function () {
+		render(true);
+	};
+
+	operator.prototype.updateCube = function (phoneme, color) {
+		cubes[phoneme].cube.material.color = new THREE.Color(color);
+		render(true);
+	};
+
+	operator.prototype.resetCubes = function () {
+		var customCode = this.customCode;
+		Object.keys(customCode).forEach(function (code) {
+			var phoneme = customCode[code];
+			cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
+		});
+		render(true);
+	};
 };
 
-Operator.prototype.renderCubes = function () {
-	render(true);
-};
-
-Operator.prototype.updateCube = function (phoneme, color) {
-	cubes[phoneme].cube.material.color = new THREE.Color(color);
-	render(true);
-};
-
-Operator.prototype.resetCubes = function () {
-	var customCode = this.customCode;
-	Object.keys(customCode).forEach(function (code) {
-		var phoneme = customCode[code];
-		cubes[phoneme.phoneme].cube.material.color = new THREE.Color(phoneme.color);
-	});
-	render(true);
-};
+module.exports = addCubeProto;
 
 })();

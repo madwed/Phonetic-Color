@@ -7,9 +7,12 @@
   "dependencies": {
     "body-parser": "^1.13.1",
     "express": "^4.12.4",
+    "raphael": "^2.1.4",
     "three": "^0.71.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  },
   "engines": {
     "node": "0.12.x"
   },
@@ -21,7 +24,6 @@
     "type": "git",
     "url": "https://github.com/madwed/Phonetic-Color.git"
   },
-  "author": "Isaac Madwed",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/madwed/Phonetic-Color/issues"

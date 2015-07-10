@@ -1,6 +1,9 @@
 
 "use strict";
 
+var Operator = require("./operator.js");
+console.log(Operator, Operator.prototype);
+
 //Set the window to the top so the page will load correctly (for refreshing)
 window.onbeforeunload = function () {
 	window.scrollTo(0, 0);

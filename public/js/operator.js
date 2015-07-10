@@ -1,7 +1,6 @@
 "use strict";
 
 
-
 function Operator () {
 	//Scroll to the top of the page on refresh/ page-load.
 	//Ensures everything renders correctly.
@@ -118,4 +117,10 @@ Operator.prototype.color = function (colorCode) {
 	//If there is a lastString reset the content
 	this.drawContent(this.lastString);
 };
+
+require("./contentCanvas")(Operator);
+require("./keyCanvas")(Operator);
+require("./cubeCanvas")(Operator);
+
+module.exports = Operator;
 

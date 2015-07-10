@@ -1,4 +1,6 @@
-(function (Raphael) {
+(function () {
+    var Raphael = require("raphael");
+
     Raphael.colorwheel = function (x, y, size, initcolor, element) {
         return new ColorWheel(x, y, size, initcolor, element);
     };
@@ -168,4 +170,8 @@
             return Raphael.hsb2rgb(this.H, this.S, this.B).hex;
         }
     };
-})(window.Raphael);
+
+    if(module) {
+        module.exports = Raphael;
+    }
+})();
