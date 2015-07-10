@@ -46,7 +46,7 @@
             var h = size20 * 2 + 2;
             t.cursorhsb.push(r.rect(size2 - h / fi / 2, padding - 1, h / fi, h, 3 * size / 200).attr({
                 stroke: "#000",
-                opacity: .5,
+                opacity: 0.5,
                 "stroke-width": w3
             }));
             t.cursorhsb.push(t.cursorhsb[0].clone().attr({
@@ -82,7 +82,7 @@
             t.cursor = r.set();
             t.cursor.push(r.circle(size2, size2, size20 / 2).attr({
                 stroke: "#000",
-                opacity: .5,
+                opacity: 0.5,
                 "stroke-width": w3
             }));
             t.cursor.push(t.cursor[0].clone().attr({
