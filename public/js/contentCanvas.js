@@ -18,7 +18,7 @@ var addContentProto = function (operator) {
 			col = margin, row = margin / 4, newLine = phoHeight + 2, space = phoWidth * 2,
 			word, codedWord, codedLength, canvasHeight,
 			color, cIndex;
-		//Calculate the height the ca nvas should be for the input
+		//Calculate the height the canvas should be for the input
 		if(codeString) {
 			canvasHeight = codedWords.reduce(function (col0Row1, currentWord) {
 				col0Row1[1] += currentWord.length * phoWidth;
@@ -29,6 +29,8 @@ var addContentProto = function (operator) {
 				col0Row1[1] += space;
 				return col0Row1;
 			}, [phoHeight, 0]);
+			//Calculate the number of newlines and add to canvasHeight
+			canvasHeight[0] += (codeString.length - codeString.replace(/K/g, "").length) * newLine;
 			canvasHeight = canvasHeight[0] + row + row;
 			textCanvas.height = canvasHeight;
 			textCanvas.style.height = canvasHeight + "px";
@@ -37,6 +39,7 @@ var addContentProto = function (operator) {
 
 		//Decode the words into arrays of colors
 		codedWords = codedWords.map(function (codeWord) {
+			if(codeWord === "K") { return "NEWLINE"; }
 			var colors = [], letter = 0, wordLength = codeWord.length;
 			for(letter; letter < wordLength; letter++) {
 				colors.push(this.customCode[codeWord[letter]].color);
@@ -46,6 +49,11 @@ var addContentProto = function (operator) {
 		//For each color coded word
 		for(word = 0; word < codedWordsLength; word++) {
 			codedWord = codedWords[word];
+			if(codedWord === "NEWLINE") {
+				col = margin;
+				row += newLine;
+				continue;
+			}
 			codedLength = codedWord.length;
 			//If the word would cross the right margin, \n
 			if(col + codedLength * phoWidth > rightMargin) {

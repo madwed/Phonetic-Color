@@ -10,14 +10,16 @@
     "three": "^0.71.0"
   },
   "devDependencies": {
+    "uglify": "^0.1.5"
   },
   "engines": {
     "node": "0.12.x"
   },
   "scripts": {
     "start": "node app.js -p $PORT",
-    "test": "nodemon app.js",
-    "build": "cp *.js *.html *.json ../build/ & cp -r ./public/stylesheets/ ../build/public/stylesheets/ & cp -r ./public/lib/ ../build/public/lib/ & cp -r ./public/fonts/ ../build/public/fonts/ & browserify ./public/js/runner.js -o ../build/public/js/build.js"
+    "srctest": "browserify ./public/js/runner.js -o ./public/js/build.js && node app.js",
+    "test": "npm run build && nodemon ../build/app.js",
+    "build": "cp *.js *.html *.json ../build/ && cp -r ./public/stylesheets/ ../build/public/stylesheets/ && cp -r ./public/lib/ ../build/public/lib/ && cp -r ./public/fonts/ ../build/public/fonts/ && browserify ./public/js/runner.js -o ../build/public/js/build.js | uglifyjs ../build/public/js/build.js --compress --mangle -o ../build/public/js/build.js && uglifyjs ../build/router.js --compress --mangle -o ../build/router.js && uglifyjs ../build/app.js --compress --mangle -o ../build/app.js && uglifyjs ../build/wordColorer.js --compress --mangle -o ../build/wordColorer.js"
   },
   "repository": {
     "type": "git",

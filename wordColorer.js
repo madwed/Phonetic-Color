@@ -46,9 +46,10 @@ var colorDict = makeDict(colorPath, colorEntry);
 var stringToPhonemes = function (string) {
 	if(!string) { return []; }
 	string = string.replace(/[^\w\s|_]/g, "");
-	var words = string.split(/\s+/);
+	var words = string.replace(/\n/g, " NEWLINE ").split(/\s+/);
 	var phonemes = [];
 	phonemes = words.map(function (word) {
+		if(word === "NEWLINE") { return word; }
 		return dict[word.toUpperCase()];
 	});
 	return phonemes;
@@ -62,6 +63,7 @@ var phonemesToColorString = function (phonemes) {
 	for(wordEntry = 0; wordEntry < phonemeLength; wordEntry++) {
 		word = phonemes[wordEntry];
 		if(!word) { continue; }
+		if(word === "NEWLINE") { colorString += "KJ"; continue; }
 		wordLength = word.length;
 		for(phoEntry = 0; phoEntry < wordLength; phoEntry++) {
 			colorString += colorDict[word[phoEntry]];
