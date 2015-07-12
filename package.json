@@ -1,0 +1,31 @@
+{
+  "name": "Phonetic-Color",
+  "version": "1.0.0",
+  "description": "Phoneme mapper that colors phonemes based on their proximity to one another.",
+  "author": "Isaac Madwed",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.12.4",
+    "three": "^0.71.0"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "scripts": {
+    "start": "node app.js -p $PORT",
+    "test": "nodemon app.js",
+    "build": "cp *.js *.html *.json ../build/ & cp -r ./public/stylesheets/ ../build/public/stylesheets/ & cp -r ./public/lib/ ../build/public/lib/ & cp -r ./public/fonts/ ../build/public/fonts/ & browserify ./public/js/runner.js -o ../build/public/js/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madwed/Phonetic-Color.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madwed/Phonetic-Color/issues"
+  },
+  "homepage": "https://github.com/madwed/Phonetic-Color"
+}
