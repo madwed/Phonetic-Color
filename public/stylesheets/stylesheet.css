@@ -124,6 +124,8 @@ button{
 	-webkit-border-radius: 10px 50px 80px 50px;
 	-moz-border-radius: 10px 50px 80px 50px;
 	border-radius: 10px 50px 80px 50px;	
+} #keyCanvas:hover{
+	cursor: pointer;
 }
 
 #color{
@@ -147,6 +149,8 @@ button{
 	-moz-border-radius: 25px 100px 25px 100px;
 	border-radius: 25px 100px 25px 100px;
 	overflow: hidden;
+} #cubeCanvas:hover{
+	cursor: move;
 }
 
 
