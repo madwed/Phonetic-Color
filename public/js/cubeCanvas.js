@@ -41,7 +41,75 @@ var scene = new THREE.Scene(),
 	labelMaterial = new THREE.MeshBasicMaterial({color: 0x000000}),
 	labelOffset = 4,
 	scale = 150,
-	gray = parseInt("cccccc", 16);
+	gray = parseInt("999999", 16);
+
+var axisMaterial = new THREE.LineBasicMaterial({ color: gray});
+var vOrgVal = -0.06 * scale;
+// vowelAxes
+var vOrg = new THREE.Vector3(vOrgVal, vOrgVal, vOrgVal);
+
+var vx = new THREE.Geometry();
+var vxEnd = new THREE.Vector3(0.25 * scale, vOrgVal, vOrgVal);
+vx.vertices.push(vOrg, vxEnd);
+scene.add(new THREE.Line(vx, axisMaterial));
+
+var vy = new THREE.Geometry();
+var vyEnd = new THREE.Vector3(vOrgVal, 0.35 * scale, vOrgVal);
+vy.vertices.push(vOrg, vyEnd);
+scene.add(new THREE.Line(vy, axisMaterial));
+
+var vz = new THREE.Geometry();
+var vzEnd = new THREE.Vector3(vOrgVal, vOrgVal, 0.55 * scale)
+vz.vertices.push(vOrg, vzEnd);
+scene.add(new THREE.Line(vz, axisMaterial));
+
+// consonantAxes
+var xOrg = 0.24 * scale, yOrg = 0.34 * scale, zOrg = 0.44 * scale;
+var cOrg = new THREE.Vector3(xOrg, yOrg, zOrg);
+
+var cx = new THREE.Geometry();
+var cxEnd = new THREE.Vector3(0.95 * scale, yOrg, zOrg);
+cx.vertices.push(cOrg, cxEnd);
+scene.add(new THREE.Line(cx, axisMaterial));
+
+var cy = new THREE.Geometry();
+var cyEnd = new THREE.Vector3(xOrg, 0.65 * scale, zOrg);
+cy.vertices.push(cOrg, cyEnd);
+scene.add(new THREE.Line(cy, axisMaterial));
+
+var cz = new THREE.Geometry();
+var czEnd = new THREE.Vector3(xOrg, yOrg, 1.05 * scale);
+cz.vertices.push(cOrg, czEnd);
+scene.add(new THREE.Line(cz, axisMaterial));
+// vowelLabels
+//Roundness, Backness, Height
+var rx = new THREE.TextGeometry("Roundness", font);
+var rLabel = new THREE.Mesh(rx, axisMaterial);
+rLabel.position.copy(vxEnd);
+labels.add(rLabel);
+var by = new THREE.TextGeometry("Backness", font);
+var bLabel = new THREE.Mesh(by, axisMaterial);
+bLabel.position.copy(vyEnd);
+labels.add(bLabel);
+var hz = new THREE.TextGeometry("Height", font);
+var hLabel = new THREE.Mesh(hz, axisMaterial);
+hLabel.position.copy(vzEnd);
+labels.add(hLabel);
+// consonantLabels
+//Manner, Voicing, Place
+var mx = new THREE.TextGeometry("Manner", font);
+var mLabel = new THREE.Mesh(mx, axisMaterial);
+mLabel.position.copy(cxEnd);
+labels.add(mLabel);
+var voicey = new THREE.TextGeometry("Voicing", font);
+var vLabel = new THREE.Mesh(voicey, axisMaterial);
+vLabel.position.copy(cyEnd);
+labels.add(vLabel);
+var pz = new THREE.TextGeometry("Place", font);
+var pLabel = new THREE.Mesh(pz, axisMaterial);
+pLabel.position.copy(czEnd);
+labels.add(pLabel);
+
 
 var vowelScaler = function (phoneme) {
 	var roundness = phoneme[0] / 5,
