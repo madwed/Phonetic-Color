@@ -46,18 +46,20 @@ canvas{
 }
 
 #text_field{
-	width: 98%;
+	width: 97%;
 	height: 25vh;
-	-webkit-border-radius: .5em 1.6em;
-	-moz-border-radius: .5em 1.6em;
-	border-radius: .5em 1.6em;
+	border: 1px solid black;
+	-webkit-border-radius: 6px 18px;
+	-moz-border-radius: 6px 18px;
+	border-radius: 6px 18px;
 	resize: none;
+	padding: 1%;
 	margin: 0px auto;
 }
 
 #textCanvas{
 	width: 97.5%;
-	height: 60vh;
+	height: 50vh;
 	border-top: 4px solid black;
 	border-right: 8px solid black;
 	border-bottom: 0px solid black;
@@ -65,18 +67,19 @@ canvas{
 	-webkit-border-radius: 25px 40px 60px 50px;
 	-moz-border-radius: 25px 40px 60px 50px;
 	border-radius: 25px 40px 60px 50px;
-	margin: 0px auto;
+	margin: 0px auto 1em;
 }
-
 h1{
 	margin: 0px 0px 0px;
 	display: block;
 	font-size: 6.5vh;
 	font-family: lovelo;
 }
-
 #grayTitle{
 	font-family: loveloLight;
+}
+h3{
+	margin: 0px;
 }
 
 #cuber{
@@ -153,6 +156,21 @@ button{
 	cursor: move;
 }
 
+
+#frequency{
+	font: 1em roboto;
+	border: 1px solid black;
+	-webkit-border-radius: 6px 18px;
+	-moz-border-radius: 6px 18px;
+	border-radius: 6px 18px;
+	padding: 1%;
+	text-align: left;
+}
+.frequencyContent{
+	display: inline-block;
+	margin: 0px 1.1em;
+	width: 10%;
+}
 
 /*#sidebar{
 	position: fixed;

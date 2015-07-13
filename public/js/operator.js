@@ -1,3 +1,4 @@
+
 "use strict";
 
 
@@ -40,6 +41,7 @@ function Operator () {
 	this.lastString = "";
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
+	document.getElementById("text_field").innerHTML = "The old man was thin and gaunt with deep wrinkles in the back of his neck. The brown blotches of the benevolent skin cancer the sun brings from its reflection on the tropic sea were on his cheeks. The blotches ran well down the sides of his face and his hands had the deep-creased scars from handling heavy fish on the cords. But none of these scars were fresh. They were as old as erosions in a fishless desert.\n\nEverything about him was old except his eyes and they were the same color as the sea and were cheerful and undefeated.";
 	var self = this;
 	var postText = function () {
 		var string = document.getElementById("text_field").value,
@@ -121,7 +123,7 @@ Operator.prototype.color = function (colorCode) {
 require("./contentCanvas")(Operator);
 require("./keyCanvas")(Operator);
 require("./cubeCanvas")(Operator);
-// require("./frequency")(Operator);
+require("./frequency")(Operator);
 
 module.exports = Operator;
 
