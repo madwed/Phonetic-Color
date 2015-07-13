@@ -1,5 +1,4 @@
 (function (Raphael) {
-
     Raphael.colorwheel = function (x, y, size, initcolor, element) {
         return new ColorWheel(x, y, size, initcolor, element);
     };
@@ -45,7 +44,7 @@
             var h = size20 * 2 + 2;
             t.cursorhsb.push(r.rect(size2 - h / fi / 2, padding - 1, h / fi, h, 3 * size / 200).attr({
                 stroke: "#000",
-                opacity: 0.5,
+                opacity: .5,
                 "stroke-width": w3
             }));
             t.cursorhsb.push(t.cursorhsb[0].clone().attr({
@@ -58,6 +57,7 @@
                 opacity: 0,
                 stroke: "none"
             });
+
             // rect drawing
             t.main = r.rect(xy, xy, wh, wh).attr({
                 stroke: "none",
@@ -66,23 +66,21 @@
             });
             t.main.clone().attr({
                 stroke: "none",
-                gradient: "0-#fff-#fff",
-                "fill-opacity": 0.0,
-                opacity: 0.0
+                fill: "0-#fff-#fff",
+                opacity: 0
             });
             t.square = r.rect(xy - 1, xy - 1, wh + 2, wh + 2).attr({
                 r: 2,
                 stroke: "#fff",
                 "stroke-width": w3,
-                gradient: "90-#000-#000",
-                "fill-opacity": 0.0,
-                opacity: 0.0,
+                fill: "90-#000-#000",
+                opacity: 0,
                 cursor: "crosshair"
             });
             t.cursor = r.set();
             t.cursor.push(r.circle(size2, size2, size20 / 2).attr({
                 stroke: "#000",
-                opacity: 0.5,
+                opacity: .5,
                 "stroke-width": w3
             }));
             t.cursor.push(t.cursor[0].clone().attr({
@@ -170,5 +168,4 @@
             return Raphael.hsb2rgb(this.H, this.S, this.B).hex;
         }
     };
-
 })(window.Raphael);

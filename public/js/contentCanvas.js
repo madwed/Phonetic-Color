@@ -21,6 +21,11 @@ var addContentProto = function (operator) {
 		//Calculate the height the canvas should be for the input
 		if(codeString) {
 			canvasHeight = codedWords.reduce(function (col0Row1, currentWord) {
+				if(currentWord === "K") {
+					col0Row1[1] = margin;
+					col0Row1[0] += newLine;
+					return col0Row1;
+				}
 				col0Row1[1] += currentWord.length * phoWidth;
 				if (col0Row1[1] > rightMargin) {
 					col0Row1[1] = currentWord.length * phoWidth + margin;
@@ -30,7 +35,6 @@ var addContentProto = function (operator) {
 				return col0Row1;
 			}, [phoHeight, 0]);
 			//Calculate the number of newlines and add to canvasHeight
-			canvasHeight[0] += (codeString.length - codeString.replace(/K/g, "").length) * newLine;
 			canvasHeight = canvasHeight[0] + row + row;
 			textCanvas.height = canvasHeight;
 			textCanvas.style.height = canvasHeight + "px";

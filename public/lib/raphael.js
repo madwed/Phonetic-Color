@@ -467,7 +467,13 @@
     }
     R.version = "2.1.2";
     //This is just a shim, only runs once when the app loads in client
-    R.posStyle = "absolute";
+    if(window.innerWidth > 1200){
+        console.log("fixed");
+        R.posStyle = "fixed";
+    }else{
+        console.log("absolute");
+        R.posStyle = "absolute";
+    }
     R.eve = eve;
     var loaded,
         separator = /[, ]+/,
