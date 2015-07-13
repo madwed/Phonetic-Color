@@ -18,7 +18,7 @@
     "start": "node app.js -p $PORT",
     "srctest": "browserify ./public/js/runner.js -o ./public/js/build.js && node app.js",
     "test": "npm run build && nodemon ../build/app.js",
-    "build": "cp *.js *.html *.json ../build/ && cp -r ./public/stylesheets/ ../build/public/stylesheets/ && cp -r ./public/lib/ ../build/public/lib/ && cp -r ./public/fonts/ ../build/public/fonts/ && browserify ./public/js/runner.js -o ../build/public/js/build.js && uglifyjs ../build/public/js/build.js --compress --mangle -o ../build/public/js/build.js && uglifyjs ../build/router.js --compress --mangle -o ../build/router.js && uglifyjs ../build/app.js --compress --mangle -o ../build/app.js && uglifyjs ../build/wordColorer.js --compress --mangle -o ../build/wordColorer.js"
+    "build": "cp *.js *.html *.json ../build/ && cp -r ./cmudict/ ../build/cmudict/ && cp -r ./public/stylesheets/ ../build/public/stylesheets/ && cp -r ./public/lib/ ../build/public/lib/ && cp -r ./public/fonts/ ../build/public/fonts/ && browserify ./public/js/runner.js -o ../build/public/js/build.js && uglifyjs ../build/public/js/build.js --compress --mangle -o ../build/public/js/build.js && uglifyjs ../build/router.js --compress --mangle -o ../build/router.js && uglifyjs ../build/app.js --compress --mangle -o ../build/app.js && uglifyjs ../build/wordColorer.js --compress --mangle -o ../build/wordColorer.js"
   },
   "repository": {
     "type": "git",
