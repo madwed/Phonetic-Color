@@ -81,6 +81,13 @@ h1{
 h3{
 	margin: 0px;
 }
+p{
+	font: .75em roboto;
+}
+a{
+	text-decoration: none;
+	color: #6666bb;
+}
 
 #cuber{
 	-webkit-user-select: none;  /* Chrome all / Safari all */
@@ -220,6 +227,9 @@ button{
 	}
 }
 @media (min-width: 1200px) {
+	.col-lg-12{
+		width: 100vw;
+	}
 	.col-lg-8{	
 		float: right;
 		width: 60vw;
