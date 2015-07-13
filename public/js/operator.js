@@ -121,7 +121,7 @@ Operator.prototype.color = function (colorCode) {
 require("./contentCanvas")(Operator);
 require("./keyCanvas")(Operator);
 require("./cubeCanvas")(Operator);
-require("./frequency")(Operator);
+// require("./frequency")(Operator);
 
 module.exports = Operator;
 
