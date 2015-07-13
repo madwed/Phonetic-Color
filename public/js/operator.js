@@ -6,7 +6,7 @@ function Operator () {
 	//Scroll to the top of the page on refresh/ page-load.
 	//Ensures everything renders correctly.
 	window.scrollTo(0, 0);
-	this.resetFuncs = [];
+	//Preset codes
 	this.defaultCode = {
 		a: {phoneme: "AA", color: "#000000"}, b: {phoneme: "AE", color: "#004c19"}, c: {phoneme: "AH", color: "#000033"},
 		d: {phoneme: "AO", color: "#330033"}, e: {phoneme: "E", color: "#004c4c"}, f: {phoneme: "EH", color: "#004c33"},
@@ -36,7 +36,7 @@ function Operator () {
 		H: {phoneme: "Z", color: "#6bcdc3"}, I: {phoneme: "ZH", color: "#86d6ce"}
 
 	};
-		//Clone the defaultCode
+	//Clone the defaultCode
 	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
 	this.lastString = "";
 	var submitButton = document.getElementById("submit"),
@@ -85,11 +85,11 @@ function Operator () {
 	resizeHandler = resizeHandler.bind(this);
 	window.onresize = resizeHandler;
 
+	//Button set up
 	var rgbButton = document.getElementById("rgb"),
 		hslButton = document.getElementById("hsl"),
 		blackButton = document.getElementById("black"),
 		whiteButton = document.getElementById("white");
-
 	rgbButton.addEventListener("click", this.color.bind(this, this.defaultCode));
 	hslButton.addEventListener("click", this.color.bind(this, this.hslCode));
 	blackButton.addEventListener("click", this.color.bind(this, "#000000"));
