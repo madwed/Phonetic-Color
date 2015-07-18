@@ -1,40 +1,35 @@
-/*
-Input string
-Convert to phonemes
-	Options
-		Use dictionary server
-		Use local dictionary
-			Access local dictionary?
-			Separate dictionary file
-Translate phonemes to color
-	Create consonant map
-	Decide default values for vowel sounds
-*/
+
 "use strict";
 
 var fs = require("fs");
 var path = require("path");
 
+
 function makeDict (filePath, entryFunc) {
-	var phoneDict = fs.readFileSync(filePath, "utf8");
-	var dictionary = {};
+	//Should use Async here
+	var phoneDict = fs.readFileSync(filePath, "utf8"),
+		dictionary = {};
+	//Split dict file on newlines
 	phoneDict = phoneDict.split(/[\n\r]/);
 	phoneDict.forEach(function (line) {
+		//Then split on spaces and form each word - phonemes pair
 		var entry = line.split(/\s/);
 		dictionary[entry[0]] = entryFunc(entry);
 	});
 	return dictionary;
 }
 
-var phonemePath = path.join(__dirname, "/cmudict/finalDict.txt");
-var phonemeEntry = function (entry) {
-	return entry.splice(1, entry.length);
-};
 
-var colorPath = path.join(__dirname, "/cmudict/phonemeColor.txt");
-var colorEntry = function (entry) {
-	return entry[1];
-};
+//Paths for word to phoneme dict (finalDict) and phoneme to color dict (phonemeColor)
+//(could combine the two, but this way it's easier to add words to the finalDict)
+var phonemePath = path.join(__dirname, "/cmudict/finalDict.txt"),
+	phonemeEntry = function (entry) {
+		return entry.splice(1, entry.length);
+	},
+	colorPath = path.join(__dirname, "/cmudict/phonemeColor.txt"),
+	colorEntry = function (entry) {
+		return entry[1];
+	};
 
 // Dictionary to map words to phonemes
 var dict = makeDict(phonemePath, phonemeEntry);
@@ -45,9 +40,12 @@ var colorDict = makeDict(colorPath, colorEntry);
 // Returns an array of phoneme arrays
 var stringToPhonemes = function (string) {
 	if(!string) { return []; }
+	//Clean string, replacing non-readable characters
 	string = string.replace(/[^\w\s|_]/g, "");
-	var words = string.replace(/\n/g, " NEWLINE ").split(/\s+/);
-	var phonemes = [];
+	//Replace newlines with newline keyword and split on space to get words
+	var words = string.replace(/\n/g, " NEWLINE ").split(/\s+/),
+		phonemes = [];
+	//Translate words to phonemes (or undefined if not in dict) or return NEWLINE
 	phonemes = words.map(function (word) {
 		if(word === "NEWLINE") { return word; }
 		return dict[word.toUpperCase()];
@@ -61,10 +59,13 @@ var phonemesToColorString = function (phonemes) {
 		phonemeLength = phonemes.length, wordLength,
 		wordEntry, phoEntry, word;
 	for(wordEntry = 0; wordEntry < phonemeLength; wordEntry++) {
+		//Grab the phoneme array for the specified word
 		word = phonemes[wordEntry];
 		if(!word) { continue; }
+		//Add newline character and space (for parsing later) if newline keyword
 		if(word === "NEWLINE") { colorString += "KJ"; continue; }
 		wordLength = word.length;
+		//Translate the phoneme array to its coded color equivalent
 		for(phoEntry = 0; phoEntry < wordLength; phoEntry++) {
 			colorString += colorDict[word[phoEntry]];
 		}
