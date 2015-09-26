@@ -4,7 +4,7 @@
 
 function Operator () {
 	//Scroll to the top of the page on refresh/ page-load.
-	//Ensures everything renders correctly.
+	//Ensures everything renders correctly. (Check if this is redundant with runner)
 	window.scrollTo(0, 0);
 	//Preset codes
 	this.defaultCode = {
@@ -39,9 +39,12 @@ function Operator () {
 	//Clone the defaultCode
 	this.customCode = JSON.parse(JSON.stringify(this.defaultCode));
 	this.lastString = "";
+	//Get submitButton and keyCanvas references for click handling
 	var submitButton = document.getElementById("submit"),
 		keyCanvas = document.getElementById("keyCanvas");
+	//Set default text
 	document.getElementById("text_field").innerHTML = "The old man was thin and gaunt with deep wrinkles in the back of his neck. The brown blotches of the benevolent skin cancer the sun brings from its reflection on the tropic sea were on his cheeks. The blotches ran well down the sides of his face and his hands had the deep-creased scars from handling heavy fish on the cords. But none of these scars were fresh. They were as old as erosions in a fishless desert.\n\nEverything about him was old except his eyes and they were the same color as the sea and were cheerful and undefeated.";
+	//Resolve this to not use self = this
 	var self = this;
 	var postText = function () {
 		var string = document.getElementById("text_field").value,
@@ -51,7 +54,6 @@ function Operator () {
 				self.lastString = xmlhttp.responseText;
 				self.drawContent(self.lastString);
 				self.tally(self.lastString);
-				self.wordy(self.lastString);
 			}
 		};
 		xmlhttp.open("POST", "/submit", true);
@@ -59,8 +61,8 @@ function Operator () {
 		xmlhttp.setRequestHeader("Content-Type", "text/plain");
 		xmlhttp.send(string);
 	};
-	postText.bind(this);
-	submitButton.addEventListener("mousedown", postText);
+	// postText.bind(this); Does nothing
+	submitButton.addEventListener("click", postText);
 
 	var keyClickHandler = function (event) {
 		event.preventDefault();
